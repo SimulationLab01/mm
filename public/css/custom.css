@@ -1,0 +1,16 @@
+/* Add here all your css styles (customizations) */
+body {
+	
+}
+
+.one-page-header .navbar-nav > li > a {
+	font-size: 18px; 
+}
+.log-reg-block a {
+	font-size: 18px; 
+}
+.m_table {
+	font-size: 18px; 
+	padding-top : 150px;
+	padding-bottom: 100px;
+}
