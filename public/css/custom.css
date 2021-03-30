@@ -9,8 +9,17 @@ body {
 .log-reg-block a {
 	font-size: 18px; 
 }
-.m_table {
+.m_partial {
 	font-size: 18px; 
 	padding-top : 150px;
 	padding-bottom: 100px;
+}
+
+thead {
+	background-color: #353535 !important;
+	color: #fff !important; 
+}
+
+tbody {
+	background-color: #fff 
 }
