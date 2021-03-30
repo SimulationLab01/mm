@@ -4,7 +4,8 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\MaterialsEntity;
+use App\Models\MaterialsEntity;
+
 
 class MaterialsController extends Controller
 {
@@ -89,4 +90,72 @@ class MaterialsController extends Controller
 
         return response()->json(null, 204);
     }
+
+
+
+    public function get_m_col_data()
+    {
+        $get_m_cul = array(
+            'columns' => array(
+                array(
+                    'field' => 'id',
+                    'title' => '編號',
+                    'sortable' => true
+                ),
+                array(
+                    'field' => 'attribute',
+                    'title' => '屬性',
+                    'sortable' => true
+                ),
+                array(
+                    'field' => 'name',
+                    'title' => '名稱',
+                    'sortable' => true
+                ),
+                array(
+                    'field' => 'type',
+                    'title' => '分類',
+                    'sortable' => true
+                ),
+                array(
+                    'field' => 'place',
+                    'title' => '位置',
+                    'sortable' => true
+                ),
+                array(
+                    'field' => 'spec',
+                    'title' => '規格',
+                    'sortable' => true
+                ),array(
+                    'field' => 'buildTime',
+                    'title' => '建立時間',
+                    'sortable' => true
+                ),
+                array(
+                    'field' => 'status',
+                    'title' => '使用狀態',
+                    'sortable' => true
+                )
+            ),
+            'data' => array(
+                array(
+                    'id' => 1,
+                    'name' => 'Item1',
+                    'price' => '$1'
+                ),
+                array(
+                    'id' => 2,
+                    'name' => 'Item2',
+                    'price' => '$2'
+                )
+            )
+        );
+
+        $data = MaterialsEntity::get_m_col_data();
+
+        return response()->json($data, 200);
+
+        // return response()->json($get_m_cul,200);
+    } 
 }
+
