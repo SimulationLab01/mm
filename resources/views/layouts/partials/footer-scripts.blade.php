@@ -20,9 +20,9 @@
 
     <!-- JS Page Level-->
     <script src="/js/app.js"></script>
-    <!-- <script src="/js/forms/login.js"></script> -->
-    <!-- <script src="/js/forms/contact.js"></script> -->
-    <!-- <script src="/js/plugins/pace-loader.js"></script> -->
+<!--     <script src="/js/forms/login.js"></script>
+    <script src="/js/forms/contact.js"></script>
+    <script src="/js/plugins/pace-loader.js"></script> -->
     <!-- <script src="assets/js/plugins/owl-carousel.js"></script> -->
     <!-- <script src="assets/js/plugins/style-switcher.js"></script> -->
     <!-- <script src="/js/plugins/revolution-slider.js"></script> -->

@@ -19,4 +19,6 @@ Route::get('/index','NewsController@index');
 
 Route::get('/get_main','NewsController@get_main');
 
-Route::get('/ajax/get_form','FormController@get_form');
+//Route::get('/ajax/get_form','FormController@get_form');
+
+Route::get('/ajax/{name_view}', 'FormController@get_form');
