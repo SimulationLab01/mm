@@ -95,6 +95,7 @@ class MaterialsController extends Controller
 
     public function get_m_col_data()
     {
+        $data = MaterialsEntity::get_m_col_data();
         $get_m_cul = array(
             'columns' => array(
                 array(
@@ -137,25 +138,10 @@ class MaterialsController extends Controller
                     'sortable' => true
                 )
             ),
-            'data' => array(
-                array(
-                    'id' => 1,
-                    'name' => 'Item1',
-                    'price' => '$1'
-                ),
-                array(
-                    'id' => 2,
-                    'name' => 'Item2',
-                    'price' => '$2'
-                )
-            )
+            'data' => $data
         );
 
-        $data = MaterialsEntity::get_m_col_data();
-
-        return response()->json($data, 200);
-
-        // return response()->json($get_m_cul,200);
+        return response()->json($get_m_cul, 200);
     } 
 }
 
