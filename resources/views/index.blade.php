@@ -2,7 +2,7 @@
 
 @section('content')
     {{--@include('layouts.partials.content.main')--}}
-    <section id="m_table" class="m_table container">
+    <section id="m_partial" class="m_partial container">
     </section>
 @endsection
 
