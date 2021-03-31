@@ -42,17 +42,21 @@ class MaterialsEntity extends Model
     public static  function get_m_col_data()
     {
         return $data = DB::table('materials')
-                        ->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
-                        ->join('m_type', 'materials.TYPE', '=', 'm_type.ID')
-                        ->join('m_status', 'materials.TYPE', '=', 'm_status.ID')
+                        //->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
+                        //->join('m_type', 'materials.TYPE', '=', 'm_type.ID')
+                        //->join('m_status', 'materials.STATUS', '=', 'm_status.ID')
                         ->select('materials.ID', 
-                                'm_attribute.ATTR_NAME', 
+                                //'m_attribute.ATTRIBUTE_NAME',
+                                'materials.ATTRIBUTE', 
                                 'materials.NAME',
-                                'm_type.TYPE_NAME', 
+                                //'m_type.TYPE_NAME', 
+                                'materials.TYPE', 
                                 'materials.PLACE', 
                                 'materials.SPEC',
                                 'materials.BUILD_DATE', 
-                                'm_status.STATUS_NAME')
+                                //'m_status.STATUS_NAME',
+                                'materials.STATUS')
+                        ->orderBy('materials.ID')
                         ->get();
     }
 
