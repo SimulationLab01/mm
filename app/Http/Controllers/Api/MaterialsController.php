@@ -135,7 +135,7 @@ class MaterialsController extends Controller
                 array(
                     'field' => 'status',
                     'title' => '使用狀態',
-                    'sortable' => true
+                    'sortable' => true,
                 )
             ),
             'data' => $data

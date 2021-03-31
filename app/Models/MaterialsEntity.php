@@ -47,4 +47,12 @@ class MaterialsEntity extends Model
                                 'm_status.STATUS_NAME')
                         ->get();
     }
+
+    public static function get_m_attr_sum()
+    {
+        return $data = DB::table('materials')
+                        ->where()
+                        ->sum()
+                        ->get();
+    }
 }
