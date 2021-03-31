@@ -100,63 +100,46 @@ class MaterialsController extends Controller
         $get_m_cul = array(
             'columns' => array(
                 array(
-                    'field' => 'id',
+                    'field' => 'ID',
                     'title' => '編號',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'attribute',
+                    'field' => 'ATTR_NAME',
                     'title' => '屬性',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'name',
+                    'field' => 'NAME',
                     'title' => '名稱',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'type',
+                    'field' => 'TYPE_NAME',
                     'title' => '分類',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'place',
+                    'field' => 'PLACE',
                     'title' => '位置',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'spec',
+                    'field' => 'SPEC',
                     'title' => '規格',
                     'sortable' => true
                 ),array(
-                    'field' => 'buildTime',
-                    'title' => '建立時間',
+                    'field' => 'BUILD_DATE',
+                    'title' => '更新時間',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'status',
+                    'field' => 'STATUS_ID',
                     'title' => '使用狀態',
                     'sortable' => true,
                 )
             ),
-<<<<<<< HEAD
-            'data' => array(
-                array(
-                    'id' => 1,
-                    'name' => 'Item1',
-                    'price' => '$1',
-                    'status' => 1
-                ),
-                array(
-                    'id' => 2,
-                    'name' => 'Item2',
-                    'price' => '$2',
-                    'status' => 2
-                )
-            )
-=======
             'data' => $data
->>>>>>> b3ebc86b3b9a5b5be5503111ea15c073c7f25378
         );
 
         return response()->json($get_m_cul, 200);
@@ -167,13 +150,7 @@ class MaterialsController extends Controller
         $precious_m = MaterialsEntity::get_m_attr_count(MaterialsEntity::ATTR_PRECIOUS);
         $general_m = MaterialsEntity::get_m_attr_count(MaterialsEntity::ATTR_GENERAL);
         $consumables = MaterialsEntity::get_m_attr_count(MaterialsEntity::ATTR_CONSUMABLE);
-
-<<<<<<< HEAD
-        return response()->json($get_m_cul, 200);
-=======
-        $data = array($precious_m, $general_m, $consumables);
->>>>>>> b3ebc86b3b9a5b5be5503111ea15c073c7f25378
-
+        $data = MaterialsEntity::get_m_col_data();
         return response()->json(config('constant.TEST'),200);
         //return response()->json(array('count'=>$data), 200);
     }

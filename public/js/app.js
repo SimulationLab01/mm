@@ -91,7 +91,7 @@ var App = function() {
 
   function fillBody(data)
   {
-    //alert('fillBody : '+data)
+    alert('fillBody : '+data)
     data.columns[7]['align'] = 'center';
     data.columns[7]['valign'] = 'middle';
     data.columns[7]['width'] = 100;
@@ -112,7 +112,7 @@ var App = function() {
 
   function AddfunctionAlty(value,row,index) {
     //alert(row.status);
-    var val = row.status;
+    var val = row.STATUS_ID;
     if( val == 1 )
     {
       return[
@@ -153,7 +153,7 @@ var App = function() {
                 toggle.bootstrapToggle('off');
               },
               確認: function () {
-                $.alert($(this));
+                //$.alert($(this));
                 //toggle.bootstrapToggle('off');
               }
           }
