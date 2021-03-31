@@ -153,8 +153,8 @@ class MaterialsController extends Controller
 
         $data = array($precious_m, $general_m, $consumables);
 
-        return response()->json(config('constant.TEST'),200);
-        //return response()->json(array('count'=>$data), 200);
+        return response()->json(array('count'=>$data), 200);
+        //return response()->json(config('constant.TEST'),200);
     }
 }
 
