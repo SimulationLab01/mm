@@ -105,7 +105,7 @@ class MaterialsController extends Controller
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'ATTR_NAME',
+                    'field' => 'ATTRIBUTE',
                     'title' => '屬性',
                     'sortable' => true
                 ),
@@ -115,7 +115,7 @@ class MaterialsController extends Controller
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'TYPE_NAME',
+                    'field' => 'TYPE',
                     'title' => '分類',
                     'sortable' => true
                 ),
@@ -134,7 +134,7 @@ class MaterialsController extends Controller
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'STATUS_ID',
+                    'field' => 'STATUS',
                     'title' => '使用狀態',
                     'sortable' => true,
                 )
