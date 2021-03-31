@@ -95,6 +95,7 @@ class MaterialsController extends Controller
 
     public function get_m_col_data()
     {
+        $data = MaterialsEntity::get_m_col_data();
         $get_m_cul = array(
             'columns' => array(
                 array(
@@ -134,9 +135,10 @@ class MaterialsController extends Controller
                 array(
                     'field' => 'status',
                     'title' => '使用狀態',
-                    'sortable' => true
+                    'sortable' => true,
                 )
             ),
+<<<<<<< HEAD
             'data' => array(
                 array(
                     'id' => 1,
@@ -151,13 +153,27 @@ class MaterialsController extends Controller
                     'status' => 2
                 )
             )
+=======
+            'data' => $data
+>>>>>>> b3ebc86b3b9a5b5be5503111ea15c073c7f25378
         );
 
-        $data = MaterialsEntity::get_m_col_data();
-
         return response()->json($get_m_cul, 200);
-
-        // return response()->json($get_m_cul,200);
     } 
+
+    public function get_m_attr_count()
+    {
+        $precious_m = MaterialsEntity::get_m_attr_count(1);
+        $general_m = MaterialsEntity::get_m_attr_count(2);
+        $consumables = MaterialsEntity::get_m_attr_count(3);
+
+<<<<<<< HEAD
+        return response()->json($get_m_cul, 200);
+=======
+        $data = array($precious_m, $general_m, $consumables);
+>>>>>>> b3ebc86b3b9a5b5be5503111ea15c073c7f25378
+
+        return response()->json(array('count'=>$data), 200);
+    }
 }
 

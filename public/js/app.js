@@ -32,6 +32,7 @@ var App = function() {
   }
 
   function fetchData(page) {
+    //alert('fetch: '+page)
     var ajax_url = '/ajax/'+page;
     //load HTML View
     $.ajax({
@@ -67,7 +68,7 @@ var App = function() {
 
   function pageSel(page,data) 
   {
-    alert('fetch: '+page+','+data)
+    //alert('pageSel: '+page+','+data);
     if(page == 'body')
     {
       fillBody(data);
@@ -90,6 +91,7 @@ var App = function() {
 
   function fillBody(data)
   {
+    //alert('fillBody : '+data)
     data.columns[7]['align'] = 'center';
     data.columns[7]['valign'] = 'middle';
     data.columns[7]['width'] = 100;
@@ -109,18 +111,22 @@ var App = function() {
   }
 
   function AddfunctionAlty(value,row,index) {
-    alert(row.status);
+    //alert(row.status);
     var val = row.status;
     if( val == 1 )
     {
       return[
-      '<input type="checkbox" checked data-toggle="toggle" class="usage-toggle">'
+      '<div class="toggle-container">'+
+      '<input type="checkbox" checked data-toggle="toggle" class="usage-toggle">'+
+      '</div>'
       ].join("")
     }
     else if( val == 2 )
     {
       return[
-      '<input type="checkbox" data-toggle="toggle" class="usage-toggle">'
+      '<div class="toggle-container">'+
+      '<input type="checkbox" data-toggle="toggle" class="usage-toggle">'+
+      '</div>'
       ].join("")
     }
     else if( val == 3 )
@@ -135,19 +141,20 @@ var App = function() {
     // "click #tableEdit":function(e,value,row,index) {
     //   alert(row.id);
     // },
-    "change .usage-toggle":function(e,value,row,index) {
-      var toggle = $(e.target);
-      //alert(toggle);
+    "click .toggle-container":function(e,value,row,index) {
+      var toggle = $(e.target).parent().parent().find('.usage-toggle');
+      //alert(toggle.attr('class'))
       $.confirm({
           title: '資產確認',
           content: '請確認資產狀態是否良好， 並將物品放回1號櫃子。',
           buttons: {
               稍後歸還: function () {
                 //$.alert($(this));
-                //toggle.bootstrapToggle('off');
+                toggle.bootstrapToggle('off');
               },
               確認: function () {
                 $.alert($(this));
+                //toggle.bootstrapToggle('off');
               }
           }
       });

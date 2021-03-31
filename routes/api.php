@@ -19,8 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('materials', 'api\MaterialsController@get_m_col_data');
 Route::get('materials/{id}', 'api\MaterialsController@show');
-Route::post('materials', 'api\MaterialsController@store');
-Route::put('materials/{id}', 'api\MaterialsController@update');
-Route::delete('materials/{id}', 'api\MaterialsController@destroy');
-#Route::get('test', 'api\MaterialsController@get_m_col_data');
+// Route::post('materials', 'api\MaterialsController@store');
+// Route::put('materials/{id}', 'api\MaterialsController@update');
+// Route::delete('materials/{id}', 'api\MaterialsController@destroy');
+Route::get('test', 'api\MaterialsController@get_m_attr_count');
 # ==> Route::apiResource('materials', 'api\MaterialsController');

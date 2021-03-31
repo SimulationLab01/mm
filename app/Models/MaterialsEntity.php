@@ -7,11 +7,11 @@ use DB;
 
 class MaterialsEntity extends Model
 {
-    // protected $table = 'materials';
-    // protected $primaryKey = 'ID';
+    protected $table = 'materials';
+    protected $primaryKey = 'ID';
 
-    // public $timestamps = True;
-    // protected $guarded = ['ID'];
+    public $timestamps = True;
+    protected $guarded = ['ID'];
 
     public function status()
     {
@@ -47,4 +47,14 @@ class MaterialsEntity extends Model
                                 'm_status.STATUS_NAME')
                         ->get();
     }
+
+    public static function get_m_attr_count($attr_id)
+    {
+        $m_attr_items = DB::table('materials')
+                        ->where('materials.ATTRIBUTE','=',$attr_id)
+                        ->get();
+
+        return count($m_attr_items);
+    }
+    
 }
