@@ -100,41 +100,41 @@ class MaterialsController extends Controller
         $get_m_cul = array(
             'columns' => array(
                 array(
-                    'field' => 'id',
+                    'field' => 'ID',
                     'title' => '編號',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'attribute',
+                    'field' => 'ATTR_NAME',
                     'title' => '屬性',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'name',
+                    'field' => 'NAME',
                     'title' => '名稱',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'type',
+                    'field' => 'TYPE_NAME',
                     'title' => '分類',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'place',
+                    'field' => 'PLACE',
                     'title' => '位置',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'spec',
+                    'field' => 'SPEC',
                     'title' => '規格',
                     'sortable' => true
                 ),array(
-                    'field' => 'buildTime',
-                    'title' => '建立時間',
+                    'field' => 'BUILD_DATE',
+                    'title' => '更新時間',
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'status',
+                    'field' => 'STATUS_ID',
                     'title' => '使用狀態',
                     'sortable' => true,
                 )
@@ -157,4 +157,3 @@ class MaterialsController extends Controller
         //return response()->json(config('constant.TEST'),200);
     }
 }
-
