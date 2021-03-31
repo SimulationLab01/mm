@@ -141,19 +141,21 @@ class MaterialsController extends Controller
                 array(
                     'id' => 1,
                     'name' => 'Item1',
-                    'price' => '$1'
+                    'price' => '$1',
+                    'status' => 1
                 ),
                 array(
                     'id' => 2,
                     'name' => 'Item2',
-                    'price' => '$2'
+                    'price' => '$2',
+                    'status' => 2
                 )
             )
         );
 
         $data = MaterialsEntity::get_m_col_data();
 
-        return response()->json($data, 200);
+        return response()->json($get_m_cul, 200);
 
         // return response()->json($get_m_cul,200);
     } 
