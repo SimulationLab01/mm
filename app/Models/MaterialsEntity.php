@@ -13,6 +13,14 @@ class MaterialsEntity extends Model
     public $timestamps = True;
     protected $guarded = ['ID'];
 
+
+    //// constant ////
+    public const ATTR_PRECIOUS = 1;
+    public const ATTR_GENERAL = 2;
+    public const ATTR_CONSUMABLE = 3;
+
+
+
     public function status()
     {
         return $this->belongsTo('App\Models\M_StatusEntity');

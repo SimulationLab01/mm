@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MaterialsEntity;
@@ -146,13 +147,14 @@ class MaterialsController extends Controller
 
     public function get_m_attr_count()
     {
-        $precious_m = MaterialsEntity::get_m_attr_count(1);
-        $general_m = MaterialsEntity::get_m_attr_count(2);
-        $consumables = MaterialsEntity::get_m_attr_count(3);
+        $precious_m = MaterialsEntity::get_m_attr_count(MaterialsEntity::ATTR_PRECIOUS);
+        $general_m = MaterialsEntity::get_m_attr_count(MaterialsEntity::ATTR_GENERAL);
+        $consumables = MaterialsEntity::get_m_attr_count(MaterialsEntity::ATTR_CONSUMABLE);
 
         $data = array($precious_m, $general_m, $consumables);
 
-        return response()->json(array('count'=>$data), 200);
+        return response()->json(config('constant.TEST'),200);
+        //return response()->json(array('count'=>$data), 200);
     }
 }
 
