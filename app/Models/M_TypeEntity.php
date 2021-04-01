@@ -13,4 +13,12 @@ class M_TypeEntity extends Model
     {
         return $this->hasMany("App/Models/MaterialsEntity");
     }
+
+
+    public static function get_m_type_array()
+    {
+        // return $data = DB::table()
+        //                 ->
+        //                 ->get();
+    }
 }

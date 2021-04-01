@@ -23,4 +23,5 @@ Route::get('materials/{id}', 'api\MaterialsController@show');
 // Route::put('materials/{id}', 'api\MaterialsController@update');
 // Route::delete('materials/{id}', 'api\MaterialsController@destroy');
 Route::get('test', 'api\MaterialsController@get_m_attr_count');
+Route::get('m_type', 'api\MaterialsController@test');
 # ==> Route::apiResource('materials', 'api\MaterialsController');
