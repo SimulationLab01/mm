@@ -22,7 +22,8 @@
     <!-- CSS Implementing Plugins -->
     <link rel="stylesheet" href="/plugins/animate.css">
     <link rel="stylesheet" href="/plugins/line-icons/line-icons.css">
-    <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/font-awesome/css/all.css">
+    <link href="/plugins/jquery-loading/loading.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="assets/plugins/pace/pace-flash.css"> -->
     <!-- <link rel="stylesheet" href="assets/plugins/owl-carousel/owl.carousel.css"> -->
     <!-- <link rel="stylesheet" href="assets/plugins/cube-portfolio/cubeportfolio/css/cubeportfolio.min.css"> -->
