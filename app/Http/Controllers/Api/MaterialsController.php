@@ -2,98 +2,48 @@
 
 namespace App\Http\Controllers\api;
 
-use Illuminate\Support\Facades\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MaterialsEntity;
+use App\Models\M_TypeEntity;
 
 
 class MaterialsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function get_all()
     {
         return response()->json(MaterialsEntity::all(), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $mInfo = MaterialsEntity::create($request->all());
-        return response()->json($mInfo, 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function get_one($id)
     {
         return response()->json(MaterialsEntity::find($id), 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function create_one(Request $request)
     {
-        //
+        // $mInfo = MaterialsEntity::create($request->all());
+
+        // return response()->json($mInfo, 201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update_one(Request $request, $id)
     {
-        $mInfo = MaterialsEntity::findOrFail($id);
-        $mInfo->update($request->all());
+        // $mInfo = MaterialsEntity::findOrFail($id);
+        // $mInfo->update($request->all());
 
-        return response()->json($mInfo, 200);
+        // return response()->json($mInfo, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function delete_one($id)
     {
-        MaterialsEntity::find($id)->delete();
+        // MaterialsEntity::find($id)->delete();
 
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
     }
 
 
-
+    //// ====more than basic CRUD==== ////
     public function get_m_col_data()
     {
         $data = MaterialsEntity::get_m_col_data();
@@ -156,4 +106,10 @@ class MaterialsController extends Controller
         return response()->json(array('count'=>$data), 200);
         //return response()->json(config('constant.TEST'),200);
     }
+
+    public function get_m_type_list()
+    {
+        return response()->json(M_TypeEntity::all() ,200);
+    }
+
 }

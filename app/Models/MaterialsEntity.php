@@ -39,7 +39,7 @@ class MaterialsEntity extends Model
     }
 
 
-    public static  function get_m_col_data()
+    public static function get_m_col_data()
     {
         return $data = DB::table('materials')
                         //->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
@@ -63,7 +63,7 @@ class MaterialsEntity extends Model
     public static function get_m_attr_count($attr_id)
     {
         $m_attr_items = DB::table('materials')
-                        ->where('materials.ATTRIBUTE','=',$attr_id)
+                        ->where('ATTRIBUTE', '=', $attr_id)
                         ->get();
 
         return count($m_attr_items);
