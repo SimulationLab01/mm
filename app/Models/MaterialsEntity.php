@@ -43,7 +43,7 @@ class MaterialsEntity extends Model
     {
         return $data = DB::table('materials')
                         //->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
-                        //->join('m_type', 'materials.TYPE', '=', 'm_type.ID')
+                        ->join('m_type', 'materials.TYPE', '=', 'm_type.ID')
                         //->join('m_status', 'materials.STATUS', '=', 'm_status.ID')
                         ->select('materials.ID', 
                                 //'m_attribute.ATTRIBUTE_NAME',
