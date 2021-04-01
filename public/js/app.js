@@ -34,6 +34,7 @@ var App = function() {
   function fetchData(page) {
     //alert('fetch: '+page)
     var ajax_url = '/ajax/'+page;
+    $("body").loading();
     //load HTML View
     $.ajax({
         type: "GET",
@@ -54,6 +55,7 @@ var App = function() {
                 //alert(data.columns[0].field)
                 //$('#m_partial').html(data)
                 pageSel(page,data);
+                $('body').loading('stop');
               },
               error:function(error){
                 console.log(error)
@@ -92,17 +94,26 @@ var App = function() {
   function fillBody(data)
   {
     //alert('fillBody : '+data)
+    data.columns[0]['align'] = 'center';
+    data.columns[0]['valign'] = 'middle';
+
+    data.columns[1]['align'] = 'center';
+    data.columns[1]['valign'] = 'middle';
+    data.columns[1]['width'] = 50;
+    data.columns[1]['formatter'] = attLook;
+
     data.columns[7]['align'] = 'center';
     data.columns[7]['valign'] = 'middle';
     data.columns[7]['width'] = 100;
-    data.columns[7]['events'] = operateEvents;
-    data.columns[7]['formatter'] = AddfunctionAlty;
+    data.columns[7]['events'] = statusEvents;
+    data.columns[7]['formatter'] = statusLook;
+
 
     $('#table').bootstrapTable({
       search: true,
-      showRefresh: true,
+      //showRefresh: true,
       buttonsAlign: "left",
-      clickToSelect: true, 
+      //clickToSelect: true, 
       columns: data.columns,
       data: data.data,
       onAll: tableEvents
@@ -110,9 +121,8 @@ var App = function() {
     //alert('fillBody');
   }
 
-  function AddfunctionAlty(value,row,index) {
-    //alert(row.status);
-    var val = row.STATUS;
+  function statusLook(value,row,index) {
+    var val = value;
     if( val == 1 )
     {
       return[
@@ -132,15 +142,40 @@ var App = function() {
     else if( val == 3 )
     {
       return[
+      '仍有存量'
+      ].join("")
+    }
+    else if( val == 4 )
+    {
+      return[
       '待補充'
       ].join("")
     }
   }
 
-  window.operateEvents = {
-    // "click #tableEdit":function(e,value,row,index) {
-    //   alert(row.id);
-    // },
+  function attLook(value,row,index) {
+    var val = value;
+    if( val == 1 )
+    {
+      return[
+      '<i class="fas fa-money-bill-alt"></i>'
+      ].join("")
+    }
+    else if( val == 2 )
+    {
+      return[
+      '<i class="fas fa-tools"></i>'
+      ].join("")
+    }
+    else if( val == 3 )
+    {
+      return[
+      '<i class="fas fa-peace"></i>'
+      ].join("")
+    }
+  }
+
+  window.statusEvents = {
     "click .toggle-container":function(e,value,row,index) {
       var toggle = $(e.target).parent().parent().find('.usage-toggle');
       //alert(toggle.attr('class'))
@@ -161,113 +196,6 @@ var App = function() {
       //alert("財產"+row.id+"已更新");
     }
   }
-
-  // function handleTable(data) {
-  //   alert('handleTable'+data);
-  //   $('#table').bootstrapTable({
-  //     search: true,
-  //     showRefresh: true,
-  //     buttonsAlign: "left",
-  //     clickToSelect: true, 
-  //     columns: [{
-  //       field: 'id',
-  //       title: '編號',
-  //       align: 'right',
-  //       width: 50,
-  //       sortable: true
-  //     }, {
-  //       field: 'cate',
-  //       title: '屬性',
-  //       align: 'center',
-  //       width: 50,
-  //       sortable: true
-  //     }, {
-  //       field: 'name',
-  //       title: '名稱',
-  //       sortable: true
-  //     }, {
-  //       field: 'type',
-  //       title: '分類',
-  //       sortable: true
-  //     }, {
-  //       field: 'place',
-  //       title: '位置',
-  //       sortable: true
-  //     }, {
-  //       field: 'spec',
-  //       title: '規格'
-  //     }, {
-  //       field: 'date',
-  //       title: '更新時間',
-  //       sortable: true
-  //     }, {
-  //       field: 'usage',
-  //       title: '',
-  //       align: 'center',
-  //       valign: 'middle',
-  //       width: 100,
-  //       events: operateEvents,
-  //       formatter: AddfunctionAlty,
-  //     }],
-  //     data: [{
-  //       id: 1,
-  //       name: 'Item 1',
-  //       place: '櫃子',
-  //       usage: '1'
-  //     }, {
-  //       id: 2,
-  //       name: 'Item 2',
-  //       place: '櫃子',
-  //       usage: '2'
-  //     },{
-  //       id: 3,
-  //       name: 'Item 1',
-  //       place: '櫃子',
-  //       usage: '1'
-  //     },{
-  //       id: 4,
-  //       name: 'Item 1',
-  //       place: '櫃子',
-  //       usage: '3'
-  //     },{
-  //       id: 5,
-  //       name: 'Item 3',
-  //       place: '櫃子',
-  //       usage: '2'
-  //     },{
-  //       id: 6,
-  //       name: 'Item 2',
-  //       place: '櫃子',
-  //       usage: '1'
-  //     },{
-  //       id: 7,
-  //       name: 'Item 1',
-  //       place: '櫃子',
-  //       usage: '1'
-  //     },{
-  //       id: 8,
-  //       name: 'Item 1',
-  //       place: '櫃子',
-  //       usage: '2'
-  //     },{
-  //       id: 9,
-  //       name: 'Item 2',
-  //       place: '櫃子',
-  //       usage: '1'
-  //     },{
-  //       id: 10,
-  //       name: 'Item 3',
-  //       place: '櫃子',
-  //       usage: '3'
-  //     },{
-  //       id: 11,
-  //       name: 'Item 1',
-  //       place: '櫃子',
-  //       usage: '1'
-  //     },],
-  //     onAll: tableEvents
-  //   })
-  // }
 
   function tableEvents(name,args) {
     //set toggle

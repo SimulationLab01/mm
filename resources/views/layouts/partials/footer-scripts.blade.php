@@ -4,6 +4,7 @@
     <!-- JS Implementing Plugins -->
 <script src="/plugins/smoothScroll.js"></script>
 <script src="/plugins/jquery.easing.min.js"></script>
+<script src="/plugins/jquery-loading/dist/jquery.loading.js"></script>
     <!-- <script src="assets/plugins/pace/pace.min.js"></script> -->
     <!-- <script src="assets/plugins/jquery.parallax.js"></script> -->
     <!-- <script src="assets/plugins/counter/waypoints.min.js"></script> -->
