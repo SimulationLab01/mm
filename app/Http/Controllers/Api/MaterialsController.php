@@ -115,7 +115,7 @@ class MaterialsController extends Controller
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'TYPE',
+                    'field' => 'TYPE_NAME',
                     'title' => '分類',
                     'sortable' => true
                 ),
