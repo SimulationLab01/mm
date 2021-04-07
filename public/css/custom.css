@@ -15,11 +15,115 @@ body {
 	padding-bottom: 100px;
 }
 
+
+/*table*/
+#table tr{
+	cursor: pointer;
+}
 thead {
 	background-color: #353535 !important;
 	color: #fff !important; 
 }
 
 tbody {
-	background-color: #fff 
+	background-color: #fff;
+}
+/*end table*/
+
+/*edit*/
+.right_pannel {
+	padding-top: 1px;
+	background-color: #f6f6f6; 
+	position: fixed;
+	left:100%;
+	top:64px;
+	width: 25%;
+	height: 94%;
+	z-index: 999;
+	transition: all 0.5s;
+}
+
+.right_pannel.show {
+	left:75%;
+}
+
+.rp_nav {
+	margin: 0;
+	border-left: none;
+	border-right: none;
+	background-color: #cccccc
+}
+.rp_nav ul{
+	width:100%;
+}
+.rp_nav li{
+	width:50%;
+	text-align: center;
+	cursor: pointer;
+}
+.rp_nav > ul > li > a{
+	background-color: #cccccc !important;
+	font-size: 16px;
+	font-weight: bold;
+}
+.rp_nav > ul > .active > a{
+	background-color: #f6f6f6 !important;
+	border-bottom-style: solid;
+	border-width: 3px;
+	border-color: #aaaaaa;
+
+}
+.rp_content {
+	height:82%;
+	margin: 0; 
+	padding-top: 35px;
+	padding-left: 35px;
+	padding-right: 35px;
+}
+.rp_btn_group {
+	margin: 0;
+	padding-right: 35px;
+}
+.rp_btn_field{
+	display: inline;
+	margin-left: 10px;
+}
+.v_head {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 40px;
+}
+.v_title {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 40px;
+}
+.v_field {
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 40px;
+}
+.v_value {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 40px;
+}
+.form-group {
+	margin-bottom: 0;
+}
+
+
+.table tbody tr.highlight td {
+  background-color: #ddd;
+}
+
+/*end edit*/
+
+
+.hide {
+	display: none;
 }

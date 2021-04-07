@@ -7,6 +7,8 @@
 
 var App = function() {
 
+  var mData;
+
   function handleHeader() {
     // jQuery to collapse the navbar on scroll
     if ($('.navbar').offset().top > 150) {
@@ -58,7 +60,8 @@ var App = function() {
                 $('body').loading('stop');
               },
               error:function(error){
-                console.log(error)
+                console.log(error);
+                $('body').loading('stop');
               }
           })
         },
@@ -116,11 +119,16 @@ var App = function() {
       //clickToSelect: true, 
       columns: data.columns,
       data: data.data,
-      onAll: tableEvents
+      onAll: tableEvents,
+      //onPreBody: sorting,
+      //onPostBody: resetView,
+      onClickRow: rowClick
     })
     //alert('fillBody');
   }
 
+
+//////////////////////Events/////////////////////
   function statusLook(value,row,index) {
     var val = value;
     if( val == 1 )
@@ -179,20 +187,29 @@ var App = function() {
     "click .toggle-container":function(e,value,row,index) {
       var toggle = $(e.target).parent().parent().find('.usage-toggle');
       //alert(toggle.attr('class'))
-      $.confirm({
+      //alert(row.STATUS);
+      if(row.STATUS == 2)
+      {
+        $.confirm({
           title: '資產確認',
-          content: '請確認資產狀態是否良好， 並將物品放回1號櫃子。',
+          content: '請確認資產狀態是否良好， 並將物品放回'+row.PLACE+'。',
           buttons: {
-              稍後歸還: function () {
-                //$.alert($(this));
-                toggle.bootstrapToggle('off');
-              },
-              確認: function () {
-                //$.alert($(this));
-                //toggle.bootstrapToggle('off');
-              }
+            稍後歸還: function () {
+              //$.alert($(this));
+              toggle.bootstrapToggle('off');
+            },
+            確認: function () {
+              //$.alert($(this));
+              //toggle.bootstrapToggle('off');
+              row.STATUS = 1
+            }
           }
-      });
+        });
+      }
+      else if(row.STATUS == 1)
+      {
+        row.STATUS = 2;
+      }
       //alert("財產"+row.id+"已更新");
     }
   }
@@ -204,7 +221,126 @@ var App = function() {
       off: '使用中',
       size: 'small'
     });
+    //alert(name)
   }
+
+  function sorting() {
+    $("body").loading();
+    //alert('sort')
+  }
+  function resetView() {
+    $('body').loading('stop');
+  }
+  function rowClick (row, $element, field) {
+
+    if (field !== 'STATUS') {
+        if($element.hasClass('highlight'))
+        {
+          $element.removeClass('highlight');
+          close_info();
+        }
+        else
+        {
+          $element.addClass('highlight').siblings().removeClass('highlight');
+          view_info(row.ID);
+        }
+        
+    }
+    // $(row).addClass('highlight').siblings().removeClass('highlight');
+  }
+
+  function viewTabClick () {
+    view_info();
+  }
+
+  function historyTabClick () {
+    view_history();
+  }
+
+  function editBtnClick () {
+    edit_info();
+  }
+
+  function borrowBtnClick() {
+    alert('borrowBtnClick')
+  }
+
+  function cancelBtnClick() {
+    view_info();
+  }
+
+  function completeBtnClick() {
+    view_info();
+  }
+
+////////////////////// End Events /////////////////////
+
+  function view_info(key) { 
+    var ajax_url = '/api/materials/'+key;
+    $('.v_input, #cancelBtn, #completeBtn, #history').addClass('hide');
+    $('.v_title, .v_value, #editBtn, #borrowBtn, #viewer').removeClass('hide');
+
+    if(key != "" && key != null)
+    {
+      $.ajax({
+        type: "GET",
+        url: ajax_url,
+        success: function(data) {
+          mData = data;
+          //alert(data.PURPOSE);
+          $('#v_id').text(data.ID);
+          $('#v_att').text( mapAtt(data.ATTRIBUTE) );
+          $('#v_name').text(data.NAME);
+          $('#v_type').text(data.TYPE);
+          $('#v_place').text(data.PLACE);
+          $('#v_spec').text(data.SPEC);
+          $('#v_purpose').text(data.PURPOSE);
+          $('#v_price').text(data.PRICE);
+          $('.right_pannel').addClass('show');
+        },
+        error:function(error){
+          console.log(error)
+        }
+      })
+    }
+  }
+  
+  function view_history(key) { 
+    $('#viewer').addClass('hide');
+    $('#history').removeClass('hide');
+    //alert(mData.ID)
+  }
+
+  function edit_info(key) { 
+    var ajax_url = '/api/materials/'+key;
+    $('.v_input, #cancelBtn, #completeBtn, #viewer').removeClass('hide');
+    $('.v_title, .v_value, #editBtn, #borrowBtn, #history').addClass('hide');
+
+    $('#e_name').val(mData.NAME);
+    $('#e_type').val(mData.TYPE);
+    $('#e_place').val(mData.PLACE);
+    $('#e_spec').val(mData.SPEC);
+    $('#e_purpose').val(mData.PURPOSE);
+    $('#e_price').val(mData.PRICE);
+  }
+
+  function close_info() {
+    $('.right_pannel').removeClass('show');
+  }
+
+  function mapAtt(key) {
+    if(key == 1)
+      return "貴重物品";
+    else if(key == 2)
+      return "一般物品";
+    else if(key == 3)
+      return "耗材";
+  }
+
+  function mapType(key) {
+
+  }
+
 
   return {
     init: function() {
@@ -216,6 +352,15 @@ var App = function() {
       handleNavbar();
       //handleTable();
       fetchData("body");
+
+      $('.v_input').addClass('hide');
+
+      $('#editBtn').on("click", editBtnClick);
+      $('#borrowBtn').on("click", borrowBtnClick);
+      $('#cancelBtn').on("click", cancelBtnClick);
+      $('#completeBtn').on("click", completeBtnClick);
+      $('#viewTab').on("click", viewTabClick)
+      $('#historyTab').on("click", historyTabClick)
     },
   };
 

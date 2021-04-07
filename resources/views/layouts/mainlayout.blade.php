@@ -19,6 +19,8 @@ The data-spy and data-target are part of the built-in Bootstrap scrollspy functi
     @section('content')
     @show
 
+    @include('layouts.partials.edit')
+
     <!-- Contact Section -->
     @include('layouts.partials.footer')
     <!-- End Contact Section -->
