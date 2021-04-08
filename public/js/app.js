@@ -8,6 +8,7 @@
 var App = function() {
 
   var mData;
+  var typeList;
 
   function handleHeader() {
     // jQuery to collapse the navbar on scroll
@@ -31,6 +32,34 @@ var App = function() {
        fetchData(page);
         //e.preventDefault();
     });
+  }
+
+  function handleRightPannel() {
+    $('.v_input').addClass('hide');
+
+    $.ajax({
+      type: "GET",
+      url: "api/materials/typeList",
+      success: function(data) {
+        typeList = data;
+        $.each(typeList, function (i, item) {
+            $('#e_type').append($('<option>', { 
+                value: item.ID,
+                text : item.TYPE_NAME 
+            }));
+        });
+      },
+      error:function(error){
+        console.log(error)
+      }
+    })
+
+    $('#editBtn').on("click", editBtnClick);
+    $('#borrowBtn').on("click", borrowBtnClick);
+    $('#cancelBtn').on("click", cancelBtnClick);
+    $('#completeBtn').on("click", completeBtnClick);
+    $('#viewTab').on("click", viewTabClick);
+    $('#historyTab').on("click", historyTabClick);
   }
 
   function fetchData(page) {
@@ -110,7 +139,6 @@ var App = function() {
     data.columns[7]['width'] = 100;
     data.columns[7]['events'] = statusEvents;
     data.columns[7]['formatter'] = statusLook;
-
 
     $('#table').bootstrapTable({
       search: true,
@@ -291,7 +319,7 @@ var App = function() {
           $('#v_id').text(data.ID);
           $('#v_att').text( mapAtt(data.ATTRIBUTE) );
           $('#v_name').text(data.NAME);
-          $('#v_type').text(data.TYPE);
+          $('#v_type').text( mapType(data.TYPE) );
           $('#v_place').text(data.PLACE);
           $('#v_spec').text(data.SPEC);
           $('#v_purpose').text(data.PURPOSE);
@@ -338,29 +366,21 @@ var App = function() {
   }
 
   function mapType(key) {
-
+    for(var i=0; i<typeList.length; i++)
+      if(typeList[i].ID == key)
+        return typeList[i].TYPE_NAME;
   }
-
 
   return {
     init: function() {
       // var url = $(location).attr('href');
       // var tag = url.split('#');
       // loadPartial(tag[1]);
-
       handleHeader();
       handleNavbar();
       //handleTable();
+      handleRightPannel();
       fetchData("body");
-
-      $('.v_input').addClass('hide');
-
-      $('#editBtn').on("click", editBtnClick);
-      $('#borrowBtn').on("click", borrowBtnClick);
-      $('#cancelBtn').on("click", cancelBtnClick);
-      $('#completeBtn').on("click", completeBtnClick);
-      $('#viewTab').on("click", viewTabClick)
-      $('#historyTab').on("click", historyTabClick)
     },
   };
 

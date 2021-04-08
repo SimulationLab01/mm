@@ -9,50 +9,55 @@
     <div id="viewer">
       <form action="insert.php" method="post" enctype="multipart/form-data" id="myform" class="form-horizontal">
         <div class="form-group row">
-          <div class="v_head">
-            <div class="col-sm-6">
+          <div class="v_text">
+            <div class="col-sm-6 v_head">
               No. <label id="v_id" class="">XXX</label>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-6 v_head">
               <label id="v_att" style="float:right">屬性</label>
             </div>
           </div>
         </div>
-        <div class="form-group row">
-          <label id="v_name" class="col-sm-12 v_title">XXX</label>
-          <input type="text" class="form-control v_input" id="e_name" name="e_name" placeholder="物品名稱">
+        <div class="form-group-title row ">
+          <div class="v_text col-sm-12">
+            <label id="v_name" class="v_title">XXX</label>
+            <input type="text" class="form-control v_input" id="e_name" name="e_name" placeholder="物品名稱">
+          </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">類別</label>
-          <div class="col-sm-9">
+          <div class="col-sm-9 v_text">
             <label id="v_type" class="v_value">手機</label>
-            <input type="text" class="form-control v_input" id="e_type" name="e_type" placeholder="">
+<!--             <input type="text" class="form-control v_input" id="e_type" name="e_type" placeholder="">
+ -->
+            <select id="e_type" class="browser-default custom-select form-control v_input" name="e_type" placeholder="">
+            </select>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">位置</label>
-          <div class="col-sm-9">
+          <div class="col-sm-9 v_text">
             <label id="v_place" class="v_value">1號櫃子</label>
             <input type="text" class="form-control v_input" id="e_place" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">規格</label>
-          <div class="col-sm-9">
+          <div class="col-sm-9 v_text">
             <label id="v_spec" class="v_value">Sony 4A,6G/128G(5G版本)</label>
             <input type="text" class="form-control v_input" id="e_spec" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">用途</label>
-          <div class="col-sm-9">
+          <div class="col-sm-9 v_text">
             <label id="m_purpose" class="v_value">OOO</label>
             <input type="text" class="form-control v_input" id="e_purpose" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
-          <div class="col-sm-9">
+          <div class="col-sm-9 v_text">
             <label id="m_price" class="v_value">OOO</label>
             <input type="text" class="form-control v_input" id="e_price" name="e_type" placeholder="">
           </div>

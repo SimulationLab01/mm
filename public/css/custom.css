@@ -80,6 +80,10 @@ tbody {
 	padding-left: 35px;
 	padding-right: 35px;
 }
+.rp_content label {
+	margin: 0;
+}
+
 .rp_btn_group {
 	margin: 0;
 	padding-right: 35px;
@@ -98,24 +102,35 @@ tbody {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 20px;
-	line-height: 40px;
 }
 .v_field {
 	font-style: normal;
 	font-weight: bold;
 	font-size: 18px;
-	line-height: 40px;
+/*	top: 50%;
+  	transform: translate(0, -50%);*/
 }
+.v_text {
+/*  top: 50%;
+  transform: translate(0, -50%);*/
+}
+
 .v_value {
 	font-style: normal;
 	font-weight: normal;
 	font-size: 18px;
-	line-height: 40px;
 }
-.form-group {
-	margin-bottom: 0;
+.rp_content .form-group {
+	/*height:40px;*/
+    position: relative;
+	margin-bottom: 15px;
+	/*height:45px;*/
 }
 
+.form-group-title {
+	height:50px;
+	position: relative;
+}
 
 .table tbody tr.highlight td {
   background-color: #ddd;
