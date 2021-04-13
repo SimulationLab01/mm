@@ -1,13 +1,13 @@
 <div class="right_pannel">
-  <nav class="navbar navbar-default rp_nav">
+  <nav class="navbar navbar-default rp_nav group_v group_e group_h">
     <ul class="nav navbar-nav">
       <li id="viewTab" class="active"><a>品項資訊</a></li>
       <li id="historyTab"><a>歷史紀錄</a></li>
     </ul>
   </nav>
   <div class="row rp_content">
-    <div id="viewer">
-      <form action="insert.php" method="post" enctype="multipart/form-data" id="myform" class="form-horizontal">
+    <div id="viewer" class="group_v group_e">
+      <form method="post" enctype="multipart/form-data" id="update-form" class="form-horizontal">
         <div class="form-group row">
           <div class="v_text">
             <div class="col-sm-6 v_head">
@@ -18,53 +18,51 @@
             </div>
           </div>
         </div>
-        <div class="form-group-title row ">
+        <div class="form-group-title row">
           <div class="v_text col-sm-12">
-            <label id="v_name" class="v_title">XXX</label>
-            <input type="text" class="form-control v_input" id="e_name" name="e_name" placeholder="物品名稱">
+            <label id="v_name" class="v_title group_v">XXX</label>
+            <input id="e_name" class="form-control v_input group_e" type="text" name="e_name" placeholder="品項名稱">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">類別</label>
           <div class="col-sm-9 v_text">
-            <label id="v_type" class="v_value">手機</label>
-<!--             <input type="text" class="form-control v_input" id="e_type" name="e_type" placeholder="">
- -->
-            <select id="e_type" class="browser-default custom-select form-control v_input" name="e_type" placeholder="">
+            <label id="v_type" class="v_value group_v">手機</label>
+            <select id="e_type" class="browser-default custom-select form-control v_input group_e" name="e_type" placeholder="">
             </select>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">位置</label>
           <div class="col-sm-9 v_text">
-            <label id="v_place" class="v_value">1號櫃子</label>
-            <input type="text" class="form-control v_input" id="e_place" name="e_type" placeholder="">
+            <label id="v_place" class="v_value group_v">1號櫃子</label>
+            <input type="text" class="form-control v_input group_e" id="e_place" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">規格</label>
           <div class="col-sm-9 v_text">
-            <label id="v_spec" class="v_value">Sony 4A,6G/128G(5G版本)</label>
-            <input type="text" class="form-control v_input" id="e_spec" name="e_type" placeholder="">
+            <label id="v_spec" class="v_value group_v">Sony 4A,6G/128G(5G版本)</label>
+            <input type="text" class="form-control v_input group_e" id="e_spec" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">用途</label>
           <div class="col-sm-9 v_text">
-            <label id="m_purpose" class="v_value">OOO</label>
-            <input type="text" class="form-control v_input" id="e_purpose" name="e_type" placeholder="">
+            <label id="m_purpose" class="v_value group_v">OOO</label>
+            <input type="text" class="form-control v_input group_e" id="e_purpose" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
           <div class="col-sm-9 v_text">
-            <label id="m_price" class="v_value">OOO</label>
-            <input type="text" class="form-control v_input" id="e_price" name="e_type" placeholder="">
+            <label id="m_price" class="v_value group_v">OOO</label>
+            <input type="text" class="form-control v_input group_e" id="e_price" name="e_type" placeholder="">
           </div>
         </div>
       </form>
     </div>
-    <div id="history" class="hide">
+    <div id="history" class="group_h">
       <div>
         <div class="h_head">
           2021.02.21 16:45
@@ -74,52 +72,67 @@
         </div>
       </div>
     </div>
-  </div>
-<!--     <div id="editor">
-      <form action="insert.php" method="post" enctype="multipart/form-data" id="myform" class="form-horizontal">
+    <div id="generator" class="group_n">
+      <form id="insert-form" class="form-horizontal">
         <div class="form-group row">
-          <label for="inputTitle" class="col-sm-4 col-form-label">Title</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="inputTitle" name="Title" placeholder="Title">
+<!--           <label for="inputTitle" class="col-sm-4 col-form-label">Title</label> -->
+          <div class="col-sm-12">
+            <input id="n_name" class="form-control" type="text" placeholder="品項名稱">
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputType" class="col-sm-4 col-form-label">Type</label>
-            <div class="col-sm-8">
-              <select class="browser-default custom-select form-control" id="inputType" name="Type">
-                <option value="1">Fashion</option>
-                <option value="2">Transport</option>
-                <option value="3">Color</option>
-                <option value="4">Visual</option>
-                <option value="5">CMF</option>
-                <option value="6">Form</option>
-                <option value="7">Space</option>
-                <option value="8">Technology</option>
-                <option value="9">UX</option>
-                <option value="10">Thinking</option>
-                <option value="11">Mechanism</option>
-              </select>
-            </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPt" class="col-sm-4 col-form-label">Project Name</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="inputPt" name="Product_type" placeholder="Raytrace, Digit etc.">
+          <label class="col-sm-3 v_field">屬性</label>
+          <div class="col-sm-9 v_text">
+            <select id="n_attr" class="browser-default custom-select form-control" placeholder="選擇屬性">
+            </select>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputDesign" class="col-sm-4 col-form-label">Designer</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="inputDesign" name="Designer" placeholder="Designer or company name">
+          <label class="col-sm-3 v_field">類別</label>
+          <div class="col-sm-9 v_text">
+            <select id="n_type" class="browser-default custom-select form-control" placeholder="選擇類別">
+            </select>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputPlace" class="col-sm-4 col-form-label">Place</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="inputPlace" name="Place" placeholder="Gemany, USA, Italy etc.">
+          <label class="col-sm-3 v_field">位置</label>
+          <div class="col-sm-9 v_text">
+            <input id="n_place" class="form-control" type="text" placeholder="存放位置">
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-3 v_field">規格</label>
+          <div class="col-sm-9 v_text">
+            <textarea id="n_spec" class="form-control" rows="3" placeholder="物品規格"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 v_field">用途</label>
+          <div class="col-sm-9 v_text">
+            <input id="n_purpose" class="form-control" type="text" placeholder="使用專案,內部測試...">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 v_field">價格</label>
+          <div class="col-sm-9 v_text">
+            <input id="n_price" class="form-control" type="text" placeholder="NTD">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="radio col-sm-6 v_field">
+            <label><input id="n_owned_y" type="radio" name="optradio" checked>有掛帳</label>
+          </div>
+          <div class="radio col-sm-6 v_field">
+            <label><input id="n_owned_n" type="radio" name="optradio">無掛帳</label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 v_field">附註</label>
+          <div class="col-sm-9 v_text">
+            <textarea id="n_note" class="form-control" rows="4" placeholder="附註"></textarea>
+          </div>
+        </div>
+<!--         <div class="form-group row">
           <label for="inputRd" class="col-sm-4 col-form-label">Release Date</label>
           <div class="col-sm-8">
             <div class="input-group date datepicker">
@@ -129,42 +142,24 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputCreator" class="col-sm-4 col-form-label">Creator</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="inputCreator" name="Creator" placeholder="AP/XX/XXXX">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputWebsite" class="col-sm-4 col-form-label">Website</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" id="inputWebsite" name="Website" placeholder="https://reurl.cc/EeNLR">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputContent" class="col-sm-4 col-form-label">Inspiration description
-</label>
-          <div class="col-sm-8">
-            <textarea class="form-control" id="inputContent" name="Content" rows="6" placeholder="Please input Content..."></textarea>
-          </div>
-        </div>
-        <div class="form-group row" align="right">
-          <div class="btn-field">
-            <button type="submit" name="submitBtn" class="btn btn-success">Submit</button>
-          </div>
-        </div>
+        </div> -->
       </form>
-    </div> -->
+    </div>
+  </div>
+  
   
   <div class="row rp_btn_group">
     <div class="row" align="right">
       <div class="rp_btn_field">
-        <button id="borrowBtn" type="button" name="submitBtn" class="btn btn-success">使用登記</button>
-        <button id="editBtn" type="button" name="submitBtn" class="btn btn-success">編輯</button>
-        <button id="cancelBtn" type="button" name="submitBtn" class="btn btn-success">取消</button>
-        <button id="completeBtn" type="button" name="submitBtn" class="btn btn-success">完成</button>
+        <button id="borrowBtn" type="button" name="submitBtn" class="btn btn-success group_v">使用登記</button>
+        <button id="editBtn" type="button" name="submitBtn" class="btn btn-success group_v">編輯</button>
+        <button id="editNBtn" type="button" name="submitBtn" class="btn btn-success group_e">取消</button>
+        <button id="editYBtn" type="button" name="submitBtn" class="btn btn-success group_e">完成</button>
+        <button id="addNBtn" type="button" name="submitBtn" class="btn btn-success group_n">取消</button>
+        <button id="addYBtn" type="button" name="submitBtn" class="btn btn-success group_n">建立</button>
       </div>
     </div>
   </div>
 </div>
+
+<a id="addBtn" class="rounded-Btn"><span>+</span></a>

@@ -34,7 +34,7 @@ var App = function() {
     });
   }
 
-  function handleRightPannel() {
+  function handleControlPannel() {
     $('.v_input').addClass('hide');
 
     $.ajax({
@@ -43,7 +43,7 @@ var App = function() {
       success: function(data) {
         typeList = data;
         $.each(typeList, function (i, item) {
-            $('#e_type').append($('<option>', { 
+            $('#e_type, #n_type').append($('<option>', { 
                 value: item.ID,
                 text : item.TYPE_NAME 
             }));
@@ -54,12 +54,17 @@ var App = function() {
       }
     })
 
-    $('#editBtn').on("click", editBtnClick);
-    $('#borrowBtn').on("click", borrowBtnClick);
-    $('#cancelBtn').on("click", cancelBtnClick);
-    $('#completeBtn').on("click", completeBtnClick);
+    $('#addBtn').on("click", addBtnClick);
+    $('#addNBtn').on("click", addNBtnClick);
+    $('#addYBtn').on("click", addYBtnClick);
+
     $('#viewTab').on("click", viewTabClick);
     $('#historyTab').on("click", historyTabClick);
+
+    $('#borrowBtn').on("click", borrowBtnClick);
+    $('#editBtn').on("click", editBtnClick);
+    $('#editNBtn').on("click", editNBtnClick);
+    $('#editYBtn').on("click", editYBtnClick);
   }
 
   function fetchData(page) {
@@ -74,25 +79,23 @@ var App = function() {
             href: ajax_url
         },
         success: function(data) {
-          $('#m_partial').html(data)
-          //fetchData(page);
+          pageLayout = data;
           ajax_url = '/api/materials';
-          //load DATA
           $.ajax({
               type: "GET",
               url: ajax_url,
               dataType: 'json',
               success: function(data) {
                 //alert(data.columns[0].field)
-                //$('#m_partial').html(data)
-                pageSel(page,data);
+                $('#m_partial').html(pageLayout);
+                pageSel(page,data);          
                 $('body').loading('stop');
               },
               error:function(error){
                 console.log(error);
                 $('body').loading('stop');
               }
-          })
+          });
         },
         error:function(error){
           console.log(error)
@@ -119,8 +122,6 @@ var App = function() {
     {
       alert('delete');
     }
-    //alert('fetch : '+page);
-    //handleTable(data);
   }
 
   function fillBody(data)
@@ -139,6 +140,22 @@ var App = function() {
     data.columns[7]['width'] = 100;
     data.columns[7]['events'] = statusEvents;
     data.columns[7]['formatter'] = statusLook;
+
+    var ajax_url = '/api/materials/counts';
+    $.ajax({
+        type: "GET",
+        url: ajax_url,
+        dataType: 'json',
+        success: function(data) {
+          //alert(data.count[0]);
+          $('#count-rich').text(data.count[0]);
+          $('#count-normal').text(data.count[1]);
+          $('#count-cheap').text(data.count[2]);
+        },
+        error:function(error){
+          console.log(error);
+        }
+    });
 
     $('#table').bootstrapTable({
       search: true,
@@ -277,6 +294,18 @@ var App = function() {
     // $(row).addClass('highlight').siblings().removeClass('highlight');
   }
 
+  function addBtnClick () {
+    add_info();
+  }
+
+  function addNBtnClick () {
+    close_info();
+  }
+
+  function addYBtnClick () {
+    close_info();
+  }
+
   function viewTabClick () {
     view_info();
   }
@@ -285,19 +314,19 @@ var App = function() {
     view_history();
   }
 
-  function editBtnClick () {
-    edit_info();
-  }
-
   function borrowBtnClick() {
     alert('borrowBtnClick')
   }
 
-  function cancelBtnClick() {
+  function editBtnClick () {
+    edit_info();
+  }
+
+  function editNBtnClick() {
     view_info();
   }
 
-  function completeBtnClick() {
+  function editYBtnClick() {
     view_info();
   }
 
@@ -305,8 +334,8 @@ var App = function() {
 
   function view_info(key) { 
     var ajax_url = '/api/materials/'+key;
-    $('.v_input, #cancelBtn, #completeBtn, #history').addClass('hide');
-    $('.v_title, .v_value, #editBtn, #borrowBtn, #viewer').removeClass('hide');
+    $('.group_h, .group_e, .group_n').addClass('hide');
+    $('.group_v').removeClass('hide');
 
     if(key != "" && key != null)
     {
@@ -334,15 +363,15 @@ var App = function() {
   }
   
   function view_history(key) { 
-    $('#viewer').addClass('hide');
-    $('#history').removeClass('hide');
+    $('.group_e, .group_v, .group_n').addClass('hide');
+    $('.group_h').removeClass('hide');
     //alert(mData.ID)
   }
 
   function edit_info(key) { 
     var ajax_url = '/api/materials/'+key;
-    $('.v_input, #cancelBtn, #completeBtn, #viewer').removeClass('hide');
-    $('.v_title, .v_value, #editBtn, #borrowBtn, #history').addClass('hide');
+    $('.group_h, .group_v, .group_n').addClass('hide');
+    $('.group_e').removeClass('hide');
 
     $('#e_name').val(mData.NAME);
     $('#e_type').val(mData.TYPE);
@@ -350,6 +379,14 @@ var App = function() {
     $('#e_spec').val(mData.SPEC);
     $('#e_purpose').val(mData.PURPOSE);
     $('#e_price').val(mData.PRICE);
+  }
+
+  function add_info() { 
+    $('.group_e, .group_v, .group_h').addClass('hide');
+    $('.group_n').removeClass('hide');
+
+    $('.right_pannel').addClass('show');
+    //alert(mData.ID)
   }
 
   function close_info() {
@@ -373,13 +410,9 @@ var App = function() {
 
   return {
     init: function() {
-      // var url = $(location).attr('href');
-      // var tag = url.split('#');
-      // loadPartial(tag[1]);
       handleHeader();
       handleNavbar();
-      //handleTable();
-      handleRightPannel();
+      handleControlPannel();
       fetchData("body");
     },
   };

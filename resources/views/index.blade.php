@@ -1,7 +1,6 @@
 @extends('layouts.mainlayout')
 
 @section('content')
-    {{--@include('layouts.partials.content.main')--}}
     <section id="m_partial" class="m_partial container">
     </section>
 @endsection
