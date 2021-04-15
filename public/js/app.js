@@ -334,6 +334,9 @@ var App = function() {
 
   function view_info(key) { 
     var ajax_url = '/api/materials/'+key;
+
+    $('#viewTab').addClass('active');
+    $('#historyTab').removeClass('active');
     $('.group_h, .group_e, .group_n').addClass('hide');
     $('.group_v').removeClass('hide');
 
