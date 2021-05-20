@@ -39,7 +39,8 @@ var App = function() {
 
     $.ajax({
       type: "GET",
-      url: "api/materials/typeList",
+      //url: "api/materials/typeList",
+      url: "materials/typeList",
       success: function(data) {
         typeList = data;
         $.each(typeList, function (i, item) {
@@ -141,7 +142,8 @@ var App = function() {
     data.columns[7]['events'] = statusEvents;
     data.columns[7]['formatter'] = statusLook;
 
-    var ajax_url = '/api/materials/counts';
+    // var ajax_url = '/api/materials/counts';
+    var ajax_url = '/materials/counts';
     $.ajax({
         type: "GET",
         url: ajax_url,
@@ -333,7 +335,8 @@ var App = function() {
 ////////////////////// End Events /////////////////////
 
   function view_info(key) { 
-    var ajax_url = '/api/materials/'+key;
+    // var ajax_url = '/api/materials/'+key;
+    var ajax_url = '/materials/'+key;
 
     $('#viewTab').addClass('active');
     $('#historyTab').removeClass('active');
@@ -372,7 +375,8 @@ var App = function() {
   }
 
   function edit_info(key) { 
-    var ajax_url = '/api/materials/'+key;
+    // var ajax_url = '/api/materials/'+key;
+    var ajax_url = '/materials/'+key;
     $('.group_h, .group_v, .group_n').addClass('hide');
     $('.group_e').removeClass('hide');
 
