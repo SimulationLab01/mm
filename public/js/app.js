@@ -81,7 +81,8 @@ var App = function() {
         },
         success: function(data) {
           pageLayout = data;
-          ajax_url = '/api/materials';
+          // ajax_url = '/api/materials';
+          ajax_url = '/materials';
           $.ajax({
               type: "GET",
               url: ajax_url,
