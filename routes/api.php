@@ -16,13 +16,8 @@ Route::prefix('materials')->group(function () {
     Route::get('/counts', 'MaterialsController@get_m_attr_count');
     Route::get('/typeList', 'MaterialsController@get_m_type_list');
     Route::get('/{id}', 'MaterialsController@get_one');
+    Route::post('/create', 'MaterialsController@create_one');
 });
-// Route::prefix('materials')->group(function () {
-//     Route::get('/', 'api\MaterialsController@get_m_col_data');
-//     Route::get('/counts', 'api\MaterialsController@get_m_attr_count');
-//     Route::get('/typeList', 'api\MaterialsController@get_m_type_list');
-//     Route::get('/{id}', 'api\MaterialsController@get_one');
-// });
 
 
 // Route::post('materials', 'MaterialsController@store');

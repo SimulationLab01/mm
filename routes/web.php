@@ -22,10 +22,3 @@ Route::get('/get_main','NewsController@get_main');
 // Route::get('/ajax/get_form','FormController@get_form');
 
 Route::get('/ajax/{name_view}', 'FormController@get_form');
-
-// Route::prefix('materials')->group(function () {
-//     Route::get('/', 'MaterialsController@get_m_col_data');
-//     Route::get('/counts', 'MaterialsController@get_m_attr_count');
-//     Route::get('/typeList', 'MaterialsController@get_m_type_list');
-//     Route::get('/{id}', 'MaterialsController@get_one');
-// });

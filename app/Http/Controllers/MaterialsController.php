@@ -22,9 +22,10 @@ class MaterialsController extends Controller
 
     public function create_one(Request $request)
     {
-        // $mInfo = MaterialsEntity::create($request->all());
+        echo(json_encode($request->all()));
+        $mInfo = MaterialsEntity::create($request->all());
 
-        // return response()->json($mInfo, 201);
+        return response()->json($mInfo, 201);
     }
 
     public function update_one(Request $request, $id)
@@ -79,7 +80,7 @@ class MaterialsController extends Controller
                     'title' => '規格',
                     'sortable' => true
                 ),array(
-                    'field' => 'BUILD_DATE',
+                    'field' => 'created_at',
                     'title' => '更新時間',
                     'sortable' => true
                 ),

@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class MaterialsEntity extends Model
 {
     protected $table = 'materials';
     protected $primaryKey = 'ID';
-
-    public $timestamps = True;
     protected $guarded = ['ID'];
 
+    public $timestamps = true;
+    use SoftDeletes; //https://laravel.tw/docs/5.0/eloquent
+    protected $dates = ['deleted_at'];
 
     //// constant ////
     public const ATTR_PRECIOUS = 1;
@@ -53,7 +55,7 @@ class MaterialsEntity extends Model
                                 //'materials.TYPE', 
                                 'materials.PLACE', 
                                 'materials.SPEC',
-                                'materials.BUILD_DATE', 
+                                'materials.created_at', 
                                 //'m_status.STATUS_NAME',
                                 'materials.STATUS')
                         ->orderBy('materials.ID')
