@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MaterialsEntity;
 use App\Models\M_TypeEntity;
+use App\Models\M_CheckEntity;
+use App\Models\M_AttrEntity;
+use App\Models\M_StatusEntity;
 
 
 class MaterialsController extends Controller
@@ -110,7 +113,11 @@ class MaterialsController extends Controller
 
     public function get_m_type_list()
     {
-        return response()->json(M_TypeEntity::all() ,200);
+        $arr = array("type" => M_TypeEntity::all(),
+                     "check"=> M_CheckEntity::all(),
+                     "attr" => M_AttrEntity::all(),
+                     "status" => M_StatusEntity::all());
+        return response()->json($arr, 200);
     }
 
 }
