@@ -31,8 +31,9 @@
     <!-- <link rel="stylesheet" href="assets/plugins/revolution-slider/rs-plugin/css/settings.css" type="text/css" media="screen"> -->
     <link rel="stylesheet" href="/plugins/login-signup-modal-window/css/style.css">
     <link rel="stylesheet" href="/plugins/bootstrap-toggle/css/bootstrap-toggle.min.css">
+    <link rel="stylesheet" href="/plugins/bootstrapValidate/css/bootstrapValidator.css">
+    
     <link rel="stylesheet" href="/plugins/jquery-confirm/dist/jquery-confirm.min.css">
-
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
 
     <!--[if lt IE 9]><link rel="stylesheet" href="assets/plugins/revolution-slider/rs-plugin/css/settings-ie8.css" type="text/css" media="screen"><![endif]-->

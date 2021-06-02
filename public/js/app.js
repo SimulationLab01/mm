@@ -10,6 +10,104 @@ var App = function() {
   var mData;
   var typeList;
 
+  //驗證欄位
+  var valided = $('#insert-form')
+    .addBack()
+    .bootstrapValidator({
+      excluded: ':disabled',
+      feedbackIcons: {
+        //valid: 'glyphicon glyphicon-ok',
+        //invalid: 'glyphicon glyphicon-remove',
+        //validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        n_name: {
+          validators: {
+            notEmpty: {
+              message: '請輸入名稱'
+            },
+            stringLength: {
+              min: 1,
+              max: 50,
+              message: 'The Title must be less than 50 characters'
+            }
+          }
+        },
+        n_place: {
+          validators: {
+            notEmpty: {
+              message: '請填寫存放位置'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Product Type must be less than 20 characters'
+            }
+          }
+        },
+        n_spec: {
+          validators: {
+            notEmpty: {
+              message: '請填寫規格'
+            },
+            stringLength: {
+              min: 1,
+              max: 100,
+              message: 'The Product Type must be less than 100 characters'
+            }
+          }
+        },
+        n_number: {
+          validators: {
+            notEmpty: {
+              message: '請填寫數量'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Product Type must be less than 20 characters'
+            }
+          }
+        },
+        n_unit: {
+          validators: {
+            notEmpty: {
+              message: '請填寫單位'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Product Type must be less than 20 characters'
+            }
+          }
+        },
+        n_purpose: {
+          validators: {
+            notEmpty: {
+              message: '請填寫用途'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Place must be less than 20 characters'
+            }
+          }
+        },
+        n_note: {
+          validators: {
+            // notEmpty: {
+            //   message: '請填寫使用人'
+            // },
+            stringLength: {
+              min: 1,
+              max: 50,
+              message: 'The Designer must be less than 50 characters'
+            }
+          }
+        }
+      }
+    })
+
   function handleHeader() {
     // jQuery to collapse the navbar on scroll
     if ($('.navbar').offset().top > 150) {
@@ -42,7 +140,15 @@ var App = function() {
       url: "api/materials/typeList",
       // url: "materials/typeList",
       success: function(data) {
-        typeList = data;
+        attrList = data.attr;
+        $.each(attrList, function (i, item) {
+            $('#e_attr, #n_attr').append($('<option>', { 
+                value: item.ID,
+                text : item.ATTR_NAME 
+            }));
+        });
+
+        typeList = data.type;
         $.each(typeList, function (i, item) {
             $('#e_type, #n_type').append($('<option>', { 
                 value: item.ID,
@@ -54,6 +160,8 @@ var App = function() {
         console.log(error)
       }
     })
+
+    $('#n_attr').on('change', attrChange);
 
     $('#addBtn').on("click", addBtnClick);
     $('#addNBtn').on("click", addNBtnClick);
@@ -84,19 +192,19 @@ var App = function() {
           ajax_url = '/api/materials';
           // ajax_url = '/materials';
           $.ajax({
-              type: "GET",
-              url: ajax_url,
-              dataType: 'json',
-              success: function(data) {
-                //alert(data.columns[0].field)
-                $('#m_partial').html(pageLayout);
-                pageSel(page,data);          
-                $('body').loading('stop');
-              },
-              error:function(error){
-                console.log(error);
-                $('body').loading('stop');
-              }
+            type: "GET",
+            url: ajax_url,
+            dataType: 'json',
+            success: function(data) {
+              //alert(data.columns[0].field)
+              $('#m_partial').html(pageLayout);
+              pageSel(page,data);          
+              $('body').loading('stop');
+            },
+            error:function(error){
+              console.log(error);
+              $('body').loading('stop');
+            }
           });
         },
         error:function(error){
@@ -276,9 +384,11 @@ var App = function() {
     $("body").loading();
     //alert('sort')
   }
+
   function resetView() {
     $('body').loading('stop');
   }
+
   function rowClick (row, $element, field) {
 
     if (field !== 'STATUS') {
@@ -297,6 +407,35 @@ var App = function() {
     // $(row).addClass('highlight').siblings().removeClass('highlight');
   }
 
+  function attrChange() {
+    var attr = $('#n_attr').val();
+    $("#insert-form").data('bootstrapValidator').resetForm();
+    if (attr == 1)
+    {
+      $('.att_b, .att_c').addClass('hide');
+      $('.att_a').removeClass('hide');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
+    }
+    else if (attr == 2) 
+    {
+      $('.att_a, .att_c').addClass('hide');
+      $('.att_b').removeClass('hide');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
+    }
+    else if (attr = 3)
+    {
+      $('.att_b, .att_a').addClass('hide');
+      $('.att_c').removeClass('hide');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', true, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', true, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
+    }
+  }
+
   function addBtnClick () {
     add_info();
   }
@@ -306,7 +445,57 @@ var App = function() {
   }
 
   function addYBtnClick () {
-    close_info();
+    var bootstrapValidator = $('#insert-form').data('bootstrapValidator');
+    //手動觸發驗證
+    bootstrapValidator.validate();
+    if(bootstrapValidator.isValid()){
+      //alert('update');
+      var status;
+      if($("#n_attr").val() == 3) 
+        if($("#n_number").val() > 10)
+          status = 3;
+        else
+          status = 4;
+      else
+        status = 1;
+
+      var dataJSON = {
+                  "ATTRIBUTE": $("#n_attr").val(),
+                  "NAME": $("#n_name").val(),
+                  "TYPE": $("#n_type").val(),
+                  "NUMBER": $("#n_number").val(),
+                  "UNIT": $("#n_unit").val(),
+                  "PLACE": $("#n_place").val(),
+                  "SPEC": $("#n_spec").val(),
+                  "USER": "",
+                  "RETURN_DELAY": 0,
+                  "PRICE": $("#n_price").val(),
+                  "NOTE": $("#n_note").val(),
+                  "PURPOSE": $("#n_purpose").val(),
+                  "OWNED": $("[name='optradio']:checked").val(),
+                  "STATUS": status
+                };
+      $.ajax({
+          url: "/api/materials/create",
+          type: "POST",
+          cache: false,
+          data: dataJSON,
+          dataType: "html",
+          success: function(data) {
+            $('#insert-form')[0].reset();
+            fetchData('body');
+            close_info();
+          },
+          error:function(xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+            console.log(error)
+          }
+      })
+    }
+    //alert($("[name='optradio']:checked").val())
+
+    
   }
 
   function viewTabClick () {
@@ -392,6 +581,8 @@ var App = function() {
   function add_info() { 
     $('.group_e, .group_v, .group_h').addClass('hide');
     $('.group_n').removeClass('hide');
+
+    attrChange();
 
     $('.right_pannel').addClass('show');
     //alert(mData.ID)

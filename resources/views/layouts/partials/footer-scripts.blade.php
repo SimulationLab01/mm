@@ -17,10 +17,12 @@
     <!-- <script src="assets/plugins/cube-portfolio/cubeportfolio/js/jquery.cubeportfolio.min.js"></script> -->
 <script src="/plugins/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
 <script src="/plugins/jquery-confirm/dist/jquery-confirm.min.js"></script>
+<script src="/plugins/bootstrapValidate/js/bootstrapValidator.js"></script>
 
 <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
 <script src="/plugins/modernizr.js"></script>
 <script src="/plugins/login-signup-modal-window/js/main.js"></script> <!-- Gem jQuery -->
+
 
     <!-- JS Page Level-->
 <script src="/js/app.js"></script>

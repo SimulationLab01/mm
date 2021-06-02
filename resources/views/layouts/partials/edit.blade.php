@@ -77,59 +77,74 @@
         <div class="form-group row">
 <!--           <label for="inputTitle" class="col-sm-4 col-form-label">Title</label> -->
           <div class="col-sm-12">
-            <input id="n_name" class="form-control" type="text" placeholder="品項名稱">
+            <input id="n_name" name="n_name" class="form-control" type="text" placeholder="品項名稱">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">屬性</label>
           <div class="col-sm-9 v_text">
-            <select id="n_attr" class="browser-default custom-select form-control" placeholder="選擇屬性">
+            <select id="n_attr" name="n_attr" class="browser-default custom-select form-control" placeholder="選擇屬性">
             </select>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">類別</label>
           <div class="col-sm-9 v_text">
-            <select id="n_type" class="browser-default custom-select form-control" placeholder="選擇類別">
+            <select id="n_type" name="n_type" class="browser-default custom-select form-control" placeholder="選擇類別">
             </select>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">位置</label>
           <div class="col-sm-9 v_text">
-            <input id="n_place" class="form-control" type="text" placeholder="存放位置">
+            <input id="n_place" name="n_place" class="form-control" type="text" placeholder="存放位置">
           </div>
         </div>
+
+        <div class="form-group row att_c">
+            <label class="col-sm-3 v_field">數量</label>
+            <div class="col-sm-9 v_text">
+              <input id="n_number" name="n_number" class="form-control" type="number" min="1" max="1000" placeholder="數量">
+            </div>
+        </div>
+
+        <div class="form-group row att_c">
+            <label class="col-sm-3 v_field">單位</label>
+            <div class="col-sm-9 v_text">
+              <input id="n_unit" name="n_unit" class="form-control" type="text" placeholder="單位">
+            </div>
+        </div>
+
         <div class="form-group row">
           <label class="col-sm-3 v_field">規格</label>
           <div class="col-sm-9 v_text">
-            <textarea id="n_spec" class="form-control" rows="3" placeholder="物品規格"></textarea>
+            <textarea id="n_spec" name="n_spec" class="form-control" rows="3" placeholder="物品規格"></textarea>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row att_a">
           <label class="col-sm-3 v_field">用途</label>
           <div class="col-sm-9 v_text">
-            <input id="n_purpose" class="form-control" type="text" placeholder="使用專案,內部測試...">
+            <input id="n_purpose" name="n_purpose" class="form-control" type="text" placeholder="使用專案,內部測試...">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
           <div class="col-sm-9 v_text">
-            <input id="n_price" class="form-control" type="text" placeholder="NTD">
+            <input id="n_price" name="n_price" class="form-control" type="number" placeholder="NTD">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row att_a">
           <div class="radio col-sm-6 v_field">
-            <label><input id="n_owned_y" type="radio" name="optradio" checked>有掛帳</label>
+            <label><input id="n_owned_y" type="radio" name="optradio" value="1" checked>有掛帳</label>
           </div>
           <div class="radio col-sm-6 v_field">
-            <label><input id="n_owned_n" type="radio" name="optradio">無掛帳</label>
+            <label><input id="n_owned_n" type="radio" name="optradio" value="0">無掛帳</label>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">附註</label>
           <div class="col-sm-9 v_text">
-            <textarea id="n_note" class="form-control" rows="4" placeholder="附註"></textarea>
+            <textarea id="n_note" name="n_note" class="form-control" rows="4" placeholder="附註"></textarea>
           </div>
         </div>
 <!--         <div class="form-group row">
