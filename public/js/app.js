@@ -10,7 +10,7 @@ var App = function() {
   var mData;
   var typeList;
 
-  //驗證欄位
+  //新增欄位驗證參數
   var valided = $('#insert-form')
     .addBack()
     .bootstrapValidator({
@@ -171,9 +171,13 @@ var App = function() {
     $('#historyTab').on("click", historyTabClick);
 
     $('#borrowBtn').on("click", borrowBtnClick);
+
+    $('#editMenuBtn').on("click", editMenuBtnClick);
     $('#editBtn').on("click", editBtnClick);
     $('#editNBtn').on("click", editNBtnClick);
     $('#editYBtn').on("click", editYBtnClick);
+    $('#deleteBtn').on("click", deleteBtnClick);
+    $('#detractBtn').on("click", detractBtnClick);
   }
 
   function fetchData(page) {
@@ -510,7 +514,16 @@ var App = function() {
     alert('borrowBtnClick')
   }
 
+  function editMenuBtnClick () {
+    if( $('.rp_editmenu_field').hasClass('hide') )
+      $('.rp_editmenu_field').removeClass('hide');
+    else
+      $('.rp_editmenu_field').addClass('hide');
+    //edit_info();
+  }
+
   function editBtnClick () {
+    $('.rp_editmenu_field').addClass('hide');
     edit_info();
   }
 
@@ -520,6 +533,16 @@ var App = function() {
 
   function editYBtnClick() {
     view_info();
+  }
+
+  function deleteBtnClick() {
+    alert('delete');
+    close_info();
+  }
+
+  function detractBtnClick() {
+    alert('detract');
+    close_info();
   }
 
 ////////////////////// End Events /////////////////////
@@ -590,6 +613,7 @@ var App = function() {
 
   function close_info() {
     $('.right_pannel').removeClass('show');
+    $('.rp_editmenu_field').addClass('hide');
   }
 
   function mapAtt(key) {

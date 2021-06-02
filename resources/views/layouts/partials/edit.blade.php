@@ -165,9 +165,14 @@
   
   <div class="row rp_btn_group">
     <div class="row" align="right">
+      <div class="rp_editmenu_field list-group hide">
+        <a id="deleteBtn" class="list-group-item">刪除</a>
+        <a id="detractBtn" class="list-group-item">減損</a>
+        <a id="editBtn" class="list-group-item">更改資訊</a>
+      </div>
       <div class="rp_btn_field">
         <button id="borrowBtn" type="button" name="submitBtn" class="btn btn-success group_v">使用登記</button>
-        <button id="editBtn" type="button" name="submitBtn" class="btn btn-success group_v">編輯</button>
+        <button id="editMenuBtn" type="button" name="submitBtn" class="btn btn-success group_v">編輯</button>
         <button id="editNBtn" type="button" name="submitBtn" class="btn btn-success group_e">取消</button>
         <button id="editYBtn" type="button" name="submitBtn" class="btn btn-success group_e">完成</button>
         <button id="addNBtn" type="button" name="submitBtn" class="btn btn-success group_n">取消</button>
