@@ -9,6 +9,7 @@ var App = function() {
 
   var mData;
   var typeList;
+  var highLightRow;
 
   //新增欄位驗證參數
   var valided = $('#insert-form')
@@ -180,6 +181,17 @@ var App = function() {
     $('#detractBtn').on("click", detractBtnClick);
   }
 
+  function handleDateRange() {
+    $('input[name="br_dates"]').daterangepicker({
+      opens: 'center',
+      drops: 'up',
+      autoApply: true,
+      alwaysShowCalendars: true
+    }, function(start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+  }
+
   function fetchData(page) {
     //alert('fetch: '+page)
     var ajax_url = '/ajax/'+page;
@@ -204,6 +216,7 @@ var App = function() {
               $('#m_partial').html(pageLayout);
               pageSel(page,data);          
               $('body').loading('stop');
+              //handleDateRange();
             },
             error:function(error){
               console.log(error);
@@ -288,6 +301,21 @@ var App = function() {
   }
 
 
+  function disableScroll() {
+    // Get the current page scroll position
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+  
+    // if any scroll is attempted, set this to the previous value
+    window.onscroll = function() {
+        window.scrollTo(scrollLeft, scrollTop);
+    };
+  }
+    
+  function enableScroll() {
+    window.onscroll = function() {};
+  }
+
 //////////////////////Events/////////////////////
   function statusLook(value,row,index) {
     var val = value;
@@ -344,33 +372,80 @@ var App = function() {
   }
 
   window.statusEvents = {
-    "click .toggle-container":function(e,value,row,index) {
+    "click .toggle-container": function(e,value,row,index) {
       var toggle = $(e.target).parent().parent().find('.usage-toggle');
-      //alert(toggle.attr('class'))
-      //alert(row.STATUS);
-      if(row.STATUS == 2)
-      {
-        $.confirm({
-          title: '資產確認',
-          content: '請確認資產狀態是否良好， 並將物品放回'+row.PLACE+'。',
-          buttons: {
-            稍後歸還: function () {
-              //$.alert($(this));
-              toggle.bootstrapToggle('off');
-            },
-            確認: function () {
-              //$.alert($(this));
-              //toggle.bootstrapToggle('off');
-              row.STATUS = 1
-            }
+      borrowCorfirm(row,toggle);
+    }
+  }
+
+  function borrowCorfirm(row,toggle)
+  {
+    if(row.STATUS == 2)
+    {
+      $.confirm({
+        title: '資產確認',
+        content: '請確認資產狀態是否良好， 並將物品放回'+row.PLACE+'。',
+        buttons: {
+          稍後歸還: function () {
+            //$.alert($(this));
+            toggle.bootstrapToggle('off');
+          },
+          確認: function () {
+            //$.alert($(this));
+            //toggle.bootstrapToggle('off');
+            row.STATUS = 1
           }
-        });
-      }
-      else if(row.STATUS == 1)
-      {
-        row.STATUS = 2;
-      }
-      //alert("財產"+row.id+"已更新");
+        }
+      });
+    }
+    else if(row.STATUS == 1)
+    {
+      $.confirm({
+          title: '使用登記',
+          content: '' +
+          '<form action="" class="formName">' +
+          '<div class="form-group">' +
+          '<label>使用人</label>' +
+          '<input type="text" name="br_name" id="br_name" class="name form-control" required />' +
+          '</div>' +
+          '<div class="form-group">' +
+          '<label>歸還日期</label>' +
+          '<input type="text" name="br_dates" id="br_dates" class="name form-control" required />' +
+          '</div>' +
+          '</form>',
+          buttons: {
+              formSubmit: {
+                  text: '借用',
+                  btnClass: 'btn-blue',
+                  action: function () {
+                      var name = this.$content.find('#br_name').val();
+                      if(!name){
+                          $.alert('請填寫借用人');
+                          return false;
+                      }
+                      $.alert(name + ' 借用完成');
+                      row.STATUS = 2;
+                      enableScroll();
+                  }
+              },
+              取消: function () {
+                  row.STATUS = 1
+                  toggle.bootstrapToggle('on');
+                  enableScroll();
+              },
+          },
+          onContentReady: function () {
+              // bind to events
+              var jc = this;
+              this.$content.find('form').on('submit', function (e) {
+                  // if the user submits the form by pressing enter in the field.
+                  e.preventDefault();
+                  jc.$$formSubmit.trigger('click'); // reference the button and click it
+              });
+              handleDateRange();
+              disableScroll();
+          }
+      });
     }
   }
 
@@ -394,19 +469,18 @@ var App = function() {
   }
 
   function rowClick (row, $element, field) {
-
+    highLightRow = $element;
     if (field !== 'STATUS') {
-        if($element.hasClass('highlight'))
-        {
-          $element.removeClass('highlight');
-          close_info();
-        }
-        else
-        {
-          $element.addClass('highlight').siblings().removeClass('highlight');
-          view_info(row.ID);
-        }
-        
+      if($element.hasClass('highlight'))
+      {
+        $element.removeClass('highlight');
+        close_info();
+      }
+      else
+      {
+        $element.addClass('highlight').siblings().removeClass('highlight');
+        view_info(row.ID);
+      }
     }
     // $(row).addClass('highlight').siblings().removeClass('highlight');
   }
@@ -512,6 +586,7 @@ var App = function() {
 
   function borrowBtnClick() {
     alert('borrowBtnClick')
+    //borrowCorfirm();
   }
 
   function editMenuBtnClick () {
@@ -537,11 +612,13 @@ var App = function() {
 
   function deleteBtnClick() {
     alert('delete');
+    highLightRow.removeClass('highlight');
     close_info();
   }
 
   function detractBtnClick() {
     alert('detract');
+    highLightRow.removeClass('highlight');
     close_info();
   }
 

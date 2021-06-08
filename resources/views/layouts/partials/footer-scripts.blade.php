@@ -23,6 +23,10 @@
 <script src="/plugins/modernizr.js"></script>
 <script src="/plugins/login-signup-modal-window/js/main.js"></script> <!-- Gem jQuery -->
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<!-- <script type="text/javascript" src="/plugins/daterangepicker/daterangepicker.js"></script> -->
+
 
     <!-- JS Page Level-->
 <script src="/js/app.js"></script>

@@ -204,6 +204,10 @@ tbody {
   z-index: 998;
 }
 
+.daterangepicker {
+	z-index: 99999999;
+}
+
 .rounded-Btn span {
 	display: inline-block;
 /*	vertical-align: middle;
@@ -212,7 +216,10 @@ tbody {
 
 /*end edit*/
 
-
 .hide {
 	display: none;
+}
+
+.disableScroll {
+	overflow: hidden;
 }

@@ -27,7 +27,7 @@
         <div class="form-group row">
           <label class="col-sm-3 v_field">類別</label>
           <div class="col-sm-9 v_text">
-            <label id="v_type" class="v_value group_v">手機</label>
+            <label id="v_type" class="v_value group_v">OOO</label>
             <select id="e_type" class="browser-default custom-select form-control v_input group_e" name="e_type" placeholder="">
             </select>
           </div>
@@ -35,28 +35,28 @@
         <div class="form-group row">
           <label class="col-sm-3 v_field">位置</label>
           <div class="col-sm-9 v_text">
-            <label id="v_place" class="v_value group_v">1號櫃子</label>
+            <label id="v_place" class="v_value group_v">OOO</label>
             <input type="text" class="form-control v_input group_e" id="e_place" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">規格</label>
           <div class="col-sm-9 v_text">
-            <label id="v_spec" class="v_value group_v">Sony 4A,6G/128G(5G版本)</label>
+            <label id="v_spec" class="v_value group_v">OOO</label>
             <input type="text" class="form-control v_input group_e" id="e_spec" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">用途</label>
           <div class="col-sm-9 v_text">
-            <label id="m_purpose" class="v_value group_v">OOO</label>
+            <label id="v_purpose" class="v_value group_v">OOO</label>
             <input type="text" class="form-control v_input group_e" id="e_purpose" name="e_type" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
           <div class="col-sm-9 v_text">
-            <label id="m_price" class="v_value group_v">OOO</label>
+            <label id="v_price" class="v_value group_v">OOO</label>
             <input type="text" class="form-control v_input group_e" id="e_price" name="e_type" placeholder="">
           </div>
         </div>
@@ -171,8 +171,8 @@
         <a id="editBtn" class="list-group-item">更改資訊</a>
       </div>
       <div class="rp_btn_field">
-        <button id="borrowBtn" type="button" name="submitBtn" class="btn btn-success group_v">使用登記</button>
-        <button id="editMenuBtn" type="button" name="submitBtn" class="btn btn-success group_v">編輯</button>
+        <!-- <button id="borrowBtn" type="button" name="submitBtn" class="btn btn-success group_v">使用登記</button> -->
+        <button id="editMenuBtn" type="button" name="submitBtn" class="btn btn-success group_v"><i class="fas fa-pencil-alt"></i> 編輯 <i class="fas fa-caret-down"></i></button>
         <button id="editNBtn" type="button" name="submitBtn" class="btn btn-success group_e">取消</button>
         <button id="editYBtn" type="button" name="submitBtn" class="btn btn-success group_e">完成</button>
         <button id="addNBtn" type="button" name="submitBtn" class="btn btn-success group_n">取消</button>
