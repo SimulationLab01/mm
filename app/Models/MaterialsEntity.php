@@ -59,6 +59,7 @@ class MaterialsEntity extends Model
                                 //'m_status.STATUS_NAME',
                                 'materials.STATUS')
                         ->orderBy('materials.ID')
+                        ->whereNull('deleted_at')
                         ->get();
     }
 

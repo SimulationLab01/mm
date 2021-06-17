@@ -15,7 +15,8 @@ class MaterialsController extends Controller
 {
     public function get_all()
     {
-        return response()->json(MaterialsEntity::all(), 200);
+        // return response()->json(MaterialsEntity::all(), 200);
+        return MaterialsEntity::all();
     }
 
     public function get_one($id)
@@ -33,17 +34,17 @@ class MaterialsController extends Controller
 
     public function update_one(Request $request, $id)
     {
-        // $mInfo = MaterialsEntity::findOrFail($id);
-        // $mInfo->update($request->all());
+        $mInfo = MaterialsEntity::findOrFail($id);
+        $mInfo->update($request->all());
 
-        // return response()->json($mInfo, 200);
+        return response()->json($mInfo, 200);
     }
 
     public function delete_one($id)
     {
-        // MaterialsEntity::find($id)->delete();
+        MaterialsEntity::find($id)->delete();
 
-        // return response()->json(null, 204);
+        return response()->json(null, 204);
     }
 
 
@@ -51,6 +52,7 @@ class MaterialsController extends Controller
     public function get_m_col_data()
     {
         $data = MaterialsEntity::get_m_col_data();
+        // $data = MaterialsController::get_all();
         $get_m_cul = array(
             'columns' => array(
                 array(
