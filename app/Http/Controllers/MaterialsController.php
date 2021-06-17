@@ -85,7 +85,7 @@ class MaterialsController extends Controller
                     'title' => '規格',
                     'sortable' => true
                 ),array(
-                    'field' => 'created_at',
+                    'field' => 'updated_at',
                     'title' => '更新時間',
                     'sortable' => true
                 ),

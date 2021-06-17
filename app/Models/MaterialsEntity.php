@@ -55,7 +55,8 @@ class MaterialsEntity extends Model
                                 //'materials.TYPE', 
                                 'materials.PLACE', 
                                 'materials.SPEC',
-                                'materials.created_at', 
+                                'materials.updated_at',
+                                DB::raw("DATE_FORMAT(materials.updated_at, '%Y-%m-%d') as updated_at"), 
                                 //'m_status.STATUS_NAME',
                                 'materials.STATUS')
                         ->orderBy('materials.ID')
