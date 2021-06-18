@@ -14,7 +14,7 @@
               No. <label id="v_id" class="">XXX</label>
             </div>
             <div class="col-sm-6 v_head">
-              <label id="v_att" style="float:right">屬性</label>
+              <label id="v_att" style="float:right" value="1">屬性</label>
             </div>
           </div>
         </div>

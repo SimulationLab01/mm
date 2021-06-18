@@ -10,6 +10,7 @@ var App = function() {
   var mData;
   var typeList;
   var highLightRow;
+  var numberThreshold = 10;
 
   //新增欄位驗證參數
   var n_valided = $('#insert-form')
@@ -637,7 +638,7 @@ var App = function() {
       //alert('update');
       var status;
       if($("#n_attr").val() == 3) 
-        if($("#n_number").val() > 10)
+        if($("#n_number").val() > numberThreshold)
           status = 3;
         else
           status = 4;
@@ -765,19 +766,31 @@ var App = function() {
   function editYBtnClick() {
     var bootstrapValidator = $('#update-form').data('bootstrapValidator');
     var id = $("#v_id").text();
+    var attr = $("#v_att").attr('value');
     bootstrapValidator.validate();
     if(bootstrapValidator.isValid()){
+      var status;
+      if(attr == 3) 
+        if($("#e_number").val() > numberThreshold)
+          status = 3;
+        else
+          status = 4;
+      else
+        status = 1;
+
       var dataJSON = {
                   "NAME": $("#e_name").val(),
                   "TYPE": $("#e_type").val(),
-                  "NUMBER": $("#n_number").val(),
-                  "UNIT": $("#n_unit").val(),
+                  "NUMBER": $("#e_number").val(),
+                  "UNIT": $("#e_unit").val(),
                   "PLACE": $("#e_place").val(),
                   "SPEC": $("#e_spec").val(),
                   "USER": $("#e_user").val(),
                   "PURPOSE": $("#e_purpose").val(),
                   "PRICE": $("#e_price").val(),
+                  "STATUS": status
                 };
+
       $.ajax({
           url: "/api/materials/edit/"+id,
           type: "POST",
@@ -877,8 +890,8 @@ var App = function() {
         success: function(data) {
           mData = data;
           var attr = data.ATTRIBUTE
+          $('#v_att').attr('value', attr)
           setFormByAttr(attr);
-          //alert(data.PURPOSE);
           $('#v_id').text(data.ID);
           $('#v_att').text( mapAtt(attr) );
           $('#v_name').text(data.NAME);
