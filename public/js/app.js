@@ -769,27 +769,26 @@ var App = function() {
     var attr = $("#v_att").attr('value');
     bootstrapValidator.validate();
     if(bootstrapValidator.isValid()){
+      var dataJSON = {
+            "NAME": $("#e_name").val(),
+            "TYPE": $("#e_type").val(),
+            "NUMBER": $("#e_number").val(),
+            "UNIT": $("#e_unit").val(),
+            "PLACE": $("#e_place").val(),
+            "SPEC": $("#e_spec").val(),
+            "USER": $("#e_user").val(),
+            "PURPOSE": $("#e_purpose").val(),
+            "PRICE": $("#e_price").val()
+          };
       var status;
       if(attr == 3) 
+      {
         if($("#e_number").val() > numberThreshold)
           status = 3;
         else
           status = 4;
-      else
-        status = 1;
-
-      var dataJSON = {
-                  "NAME": $("#e_name").val(),
-                  "TYPE": $("#e_type").val(),
-                  "NUMBER": $("#e_number").val(),
-                  "UNIT": $("#e_unit").val(),
-                  "PLACE": $("#e_place").val(),
-                  "SPEC": $("#e_spec").val(),
-                  "USER": $("#e_user").val(),
-                  "PURPOSE": $("#e_purpose").val(),
-                  "PRICE": $("#e_price").val(),
-                  "STATUS": status
-                };
+        dataJSON.STATUS = status;
+      }
 
       $.ajax({
           url: "/api/materials/edit/"+id,
