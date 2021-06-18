@@ -36,28 +36,52 @@
           <label class="col-sm-3 v_field">位置</label>
           <div class="col-sm-9 v_text">
             <label id="v_place" class="v_value group_v">OOO</label>
-            <input type="text" class="form-control v_input group_e" id="e_place" name="e_type" placeholder="">
+            <input id="e_place" name="e_place" type="text" class="form-control v_input group_e"  placeholder="">
           </div>
         </div>
+
+        <div class="form-group row att_c">
+            <label class="col-sm-3 v_field">數量</label>
+            <div class="col-sm-9 v_text">
+              <label id="v_number" class="v_value group_v">OOO</label>
+              <input id="e_number" name="e_number" class="form-control v_input group_e" type="number" min="1" max="1000" placeholder="數量">
+            </div>
+        </div>
+
+        <div class="form-group row att_c">
+            <label class="col-sm-3 v_field">單位</label>
+            <div class="col-sm-9 v_text">
+              <label id="v_unit" class="v_value group_v">OOO</label>
+              <input id="e_unit" name="e_unit" class="form-control v_input group_e" type="text" placeholder="單位">
+            </div>
+        </div>
+
         <div class="form-group row">
           <label class="col-sm-3 v_field">規格</label>
           <div class="col-sm-9 v_text">
             <label id="v_spec" class="v_value group_v">OOO</label>
-            <input type="text" class="form-control v_input group_e" id="e_spec" name="e_type" placeholder="">
+            <input type="text" class="form-control v_input group_e" id="e_spec" name="e_spec" placeholder="">
           </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row att_a att_b">
+          <label class="col-sm-3 v_field">使用人</label>
+          <div class="col-sm-9 v_text">
+            <label id="v_user" class="v_value group_v">OOO</label>
+            <input type="text" class="form-control v_input group_e" id="e_user" name="e_user" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row att_a att_b">
           <label class="col-sm-3 v_field">用途</label>
           <div class="col-sm-9 v_text">
             <label id="v_purpose" class="v_value group_v">OOO</label>
-            <input type="text" class="form-control v_input group_e" id="e_purpose" name="e_type" placeholder="">
+            <input type="text" class="form-control v_input group_e" id="e_purpose" name="e_purpose" placeholder="">
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
           <div class="col-sm-9 v_text">
             <label id="v_price" class="v_value group_v">OOO</label>
-            <input type="text" class="form-control v_input group_e" id="e_price" name="e_type" placeholder="">
+            <input id="e_price" name="e_price" type="number" class="form-control v_input group_e"  placeholder="NTD">
           </div>
         </div>
       </form>

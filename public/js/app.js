@@ -12,7 +12,7 @@ var App = function() {
   var highLightRow;
 
   //新增欄位驗證參數
-  var valided = $('#insert-form')
+  var n_valided = $('#insert-form')
     .addBack()
     .bootstrapValidator({
       excluded: ':disabled',
@@ -109,6 +109,115 @@ var App = function() {
       }
     })
 
+  var e_valided = $('#update-form')
+    .addBack()
+    .bootstrapValidator({
+      excluded: ':disabled',
+      feedbackIcons: {
+        //valid: 'glyphicon glyphicon-ok',
+        //invalid: 'glyphicon glyphicon-remove',
+        //validating: 'glyphicon glyphicon-refresh'
+      },
+      fields: {
+        e_name: {
+          validators: {
+            notEmpty: {
+              message: '請輸入名稱'
+            },
+            stringLength: {
+              min: 1,
+              max: 50,
+              message: 'The Title must be less than 50 characters'
+            }
+          }
+        },
+        e_place: {
+          validators: {
+            notEmpty: {
+              message: '請填寫存放位置'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Product Type must be less than 20 characters'
+            }
+          }
+        },
+        e_spec: {
+          validators: {
+            notEmpty: {
+              message: '請填寫規格'
+            },
+            stringLength: {
+              min: 1,
+              max: 100,
+              message: 'The Product Type must be less than 100 characters'
+            }
+          }
+        },
+        e_number: {
+          validators: {
+            notEmpty: {
+              message: '請填寫數量'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Product Type must be less than 20 characters'
+            }
+          }
+        },
+        e_unit: {
+          validators: {
+            notEmpty: {
+              message: '請填寫單位'
+            },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Product Type must be less than 20 characters'
+            }
+          }
+        },
+        e_user: {
+          validators: {
+            // notEmpty: {
+            //   message: '請填寫使用人'
+            // },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Place must be less than 20 characters'
+            }
+          }
+        },
+        e_purpose: {
+          validators: {
+            // notEmpty: {
+            //   message: '請填寫用途'
+            // },
+            stringLength: {
+              min: 1,
+              max: 20,
+              message: 'The Place must be less than 20 characters'
+            }
+          }
+        },
+        e_price: {
+          validators: {
+            // notEmpty: {
+            //   message: '請填寫使用人'
+            // },
+            stringLength: {
+              min: 1,
+              max: 50,
+              message: 'The Designer must be less than 50 characters'
+            }
+          }
+        }
+      }
+    })
+
   function handleHeader() {
     // jQuery to collapse the navbar on scroll
     if ($('.navbar').offset().top > 150) {
@@ -182,10 +291,16 @@ var App = function() {
   }
 
   function handleDateRange() {
+    var nowDate = new Date();
+    var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0, 0);
     $('input[name="br_dates"]').daterangepicker({
       opens: 'center',
       drops: 'up',
+      minDate: today,
       autoApply: true,
+      locale: {
+            format: 'YYYY/MM/DD'
+        },
       alwaysShowCalendars: true
     }, function(start, end, label) {
       console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
@@ -393,6 +508,9 @@ var App = function() {
           確認: function () {
             //$.alert($(this));
             //toggle.bootstrapToggle('off');
+            //var nowDate = new Date();
+            //var today = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), nowDate.getHours(), nowDate.getMinutes, nowDate.getSeconds, 0);
+            returnBtnClick(row.ID);
             row.STATUS = 1
           }
         }
@@ -406,7 +524,11 @@ var App = function() {
           '<form action="" class="formName">' +
           '<div class="form-group">' +
           '<label>使用人</label>' +
-          '<input type="text" name="br_name" id="br_name" class="name form-control" required />' +
+          '<input type="text" name="br_user" id="br_user" class="name form-control" required />' +
+          '</div>' +
+          '<div class="form-group">' +
+          '<label>用途</label>' +
+          '<input type="text" name="br_purpose" id="br_purpose" class="name form-control" required />' +
           '</div>' +
           '<div class="form-group">' +
           '<label>歸還日期</label>' +
@@ -418,12 +540,19 @@ var App = function() {
                   text: '借用',
                   btnClass: 'btn-blue',
                   action: function () {
-                      var name = this.$content.find('#br_name').val();
+                      var name = this.$content.find('#br_user').val();
+                      var purpose = this.$content.find('#br_purpose').val();
+                      var date = $('input[name="br_dates"]').data('daterangepicker').endDate.format('YYYY-MM-DD HH:mm:ss');
                       if(!name){
                           $.alert('請填寫借用人');
                           return false;
                       }
-                      $.alert(name + ' 借用完成');
+                      if(!purpose){
+                          $.alert('請填寫用途');
+                          return false;
+                      }
+                      //借用API//
+                      borrowBtnClick(row.ID,name,purpose,date);
                       row.STATUS = 2;
                       enableScroll();
                   }
@@ -488,30 +617,7 @@ var App = function() {
   function attrChange() {
     var attr = $('#n_attr').val();
     $("#insert-form").data('bootstrapValidator').resetForm();
-    if (attr == 1)
-    {
-      $('.att_b, .att_c').addClass('hide');
-      $('.att_a').removeClass('hide');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
-    }
-    else if (attr == 2) 
-    {
-      $('.att_a, .att_c').addClass('hide');
-      $('.att_b').removeClass('hide');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
-    }
-    else if (attr = 3)
-    {
-      $('.att_b, .att_a').addClass('hide');
-      $('.att_c').removeClass('hide');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', true, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', true, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
-    }
+    setFormByAttr(attr);
   }
 
   function addBtnClick () {
@@ -520,6 +626,7 @@ var App = function() {
 
   function addNBtnClick () {
     close_info();
+    resetAddForm();
   }
 
   function addYBtnClick () {
@@ -572,7 +679,6 @@ var App = function() {
       })
     }
     //alert($("[name='optradio']:checked").val())
-
     
   }
 
@@ -584,9 +690,58 @@ var App = function() {
     view_history();
   }
 
-  function borrowBtnClick() {
-    alert('borrowBtnClick')
-    //borrowCorfirm();
+  function borrowBtnClick(id,user,purpose,date) {
+    //alert(date);
+    var dataJSON = {
+                  "USER": user,
+                  "RETURN_DATE": date,
+                  "PURPOSE": purpose,
+                  "STATUS": 2
+                };
+    $.ajax({
+          url: "/api/materials/edit/"+id,
+          type: "POST",
+          cache: false,
+          data: dataJSON,
+          dataType: "html",
+          success: function(data) {
+            $.alert(user + ' 借用完成');
+            //$('#insert-form')[0].reset();
+            //fetchData('body');
+            //close_info();
+          },
+          error:function(xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+            console.log(error)
+          }
+      })
+  }
+
+  function returnBtnClick(id) {
+    var dataJSON = {
+                  "USER": '',
+                  "PURPOSE": '',
+                  "STATUS": 1
+                };
+    $.ajax({
+          url: "/api/materials/edit/"+id,
+          type: "POST",
+          cache: false,
+          data: dataJSON,
+          dataType: "html",
+          success: function(data) {
+            //$('#insert-form')[0].reset();
+            //fetchData('body');
+            //alert(date);
+            //close_info();
+          },
+          error:function(xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+            console.log(error)
+          }
+      })
   }
 
   function editMenuBtnClick () {
@@ -603,11 +758,45 @@ var App = function() {
   }
 
   function editNBtnClick() {
+    resetUpdateForm();
     view_info();
   }
 
   function editYBtnClick() {
-    view_info();
+    var bootstrapValidator = $('#update-form').data('bootstrapValidator');
+    var id = $("#v_id").text();
+    bootstrapValidator.validate();
+    if(bootstrapValidator.isValid()){
+      var dataJSON = {
+                  "NAME": $("#e_name").val(),
+                  "TYPE": $("#e_type").val(),
+                  "NUMBER": $("#n_number").val(),
+                  "UNIT": $("#n_unit").val(),
+                  "PLACE": $("#e_place").val(),
+                  "SPEC": $("#e_spec").val(),
+                  "USER": $("#e_user").val(),
+                  "PURPOSE": $("#e_purpose").val(),
+                  "PRICE": $("#e_price").val(),
+                };
+      $.ajax({
+          url: "/api/materials/edit/"+id,
+          type: "POST",
+          cache: false,
+          data: dataJSON,
+          dataType: "html",
+          success: function(data) {
+            resetUpdateForm();
+            fetchData('body');
+            close_info();
+          },
+          error:function(xhr, ajaxOptions, thrownError){
+            alert(xhr.status);
+            alert(thrownError);
+            console.log(error)
+          }
+      })
+    }
+    //view_info();
   }
 
   function deleteBtnClick() {
@@ -624,10 +813,57 @@ var App = function() {
 
 ////////////////////// End Events /////////////////////
 
+  function setFormByAttr(attr) {
+    //var attr = $('#n_attr').val();
+    
+    if (attr == 1)
+    {
+      $('.att_b, .att_c').addClass('hide');
+      $('.att_a').removeClass('hide');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
+
+      $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
+      $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
+    }
+    else if (attr == 2) 
+    {
+      $('.att_a, .att_c').addClass('hide');
+      $('.att_b').removeClass('hide');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
+
+      $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
+      $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
+    }
+    else if (attr = 3)
+    {
+      $('.att_b, .att_a').addClass('hide');
+      $('.att_c').removeClass('hide');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', true, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', true, 'notEmpty');
+      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
+
+      $('#update-form').bootstrapValidator('enableFieldValidators','e_number', true, 'notEmpty');
+      $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', true, 'notEmpty');
+    }
+  }
+
+  function resetAddForm(){
+    $('#insert-form')[0].reset();
+    $("#insert-form").data('bootstrapValidator').resetForm();
+  }
+
+  function resetUpdateForm(){
+    $('#update-form')[0].reset();
+    $("#update-form").data('bootstrapValidator').resetForm();
+  }
+
   function view_info(key) { 
     var ajax_url = '/api/materials/'+key;
     // var ajax_url = '/materials/'+key;
-
     $('#viewTab').addClass('active');
     $('#historyTab').removeClass('active');
     $('.group_h, .group_e, .group_n').addClass('hide');
@@ -640,13 +876,18 @@ var App = function() {
         url: ajax_url,
         success: function(data) {
           mData = data;
+          var attr = data.ATTRIBUTE
+          setFormByAttr(attr);
           //alert(data.PURPOSE);
           $('#v_id').text(data.ID);
-          $('#v_att').text( mapAtt(data.ATTRIBUTE) );
+          $('#v_att').text( mapAtt(attr) );
           $('#v_name').text(data.NAME);
           $('#v_type').text( mapType(data.TYPE) );
           $('#v_place').text(data.PLACE);
+          $('#v_number').text(data.NUMBER);
+          $('#v_unit').text(data.UNIT);
           $('#v_spec').text(data.SPEC);
+          $('#v_user').text(data.USER);
           $('#v_purpose').text(data.PURPOSE);
           $('#v_price').text(data.PRICE);
           $('.right_pannel').addClass('show');
@@ -673,16 +914,20 @@ var App = function() {
     $('#e_name').val(mData.NAME);
     $('#e_type').val(mData.TYPE);
     $('#e_place').val(mData.PLACE);
+    $('#e_number').val(mData.NUMBER);
+    $('#e_unit').val(mData.UNIT);
     $('#e_spec').val(mData.SPEC);
+    $('#e_user').val(mData.USER);
     $('#e_purpose').val(mData.PURPOSE);
     $('#e_price').val(mData.PRICE);
   }
 
   function add_info() { 
+    var attr = $('#n_attr').val();
     $('.group_e, .group_v, .group_h').addClass('hide');
     $('.group_n').removeClass('hide');
 
-    attrChange();
+    setFormByAttr(attr);
 
     $('.right_pannel').addClass('show');
     //alert(mData.ID)
