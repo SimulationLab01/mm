@@ -68,6 +68,7 @@ class MaterialsEntity extends Model
     {
         $m_attr_items = DB::table('materials')
                         ->where('ATTRIBUTE', '=', $attr_id)
+                        ->whereNull('deleted_at')
                         ->get();
 
         return count($m_attr_items);
