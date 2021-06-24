@@ -812,9 +812,35 @@ var App = function() {
   }
 
   function deleteBtnClick() {
-    alert('delete');
-    highLightRow.removeClass('highlight');
-    close_info();
+    //alert('delete');
+    var id = $("#v_id").text();
+    //alert(id);
+    $.confirm({
+        title: '刪除確認',
+        content: '是否確認要刪除資產。',
+        buttons: {
+          取消: function () {
+            
+          },
+          確認: function () {
+            $.ajax({
+              url: "/api/materials/delete/"+id,
+              type: "GET",
+              cache: false,
+              dataType: "json",
+              success: function(data) {
+                fetchData('body');
+                close_info();
+              },
+              error:function(xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+                console.log(error)
+              }
+          })
+          }
+        }
+    })
   }
 
   function detractBtnClick() {
@@ -899,8 +925,8 @@ var App = function() {
           $('#v_number').text(data.NUMBER);
           $('#v_unit').text(data.UNIT);
           $('#v_spec').text(data.SPEC);
-          $('#v_user').text(data.USER);
-          $('#v_purpose').text(data.PURPOSE);
+          $('#v_user').text( data.USER == null ? "" : data.USER );
+          $('#v_purpose').text( data.PURPOSE == null ? "" : data.PURPOSE );
           $('#v_price').text(data.PRICE);
           $('.right_pannel').addClass('show');
         },
