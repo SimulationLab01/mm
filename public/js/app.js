@@ -668,7 +668,7 @@ var App = function() {
           data: dataJSON,
           dataType: "html",
           success: function(data) {
-            $('#insert-form')[0].reset();
+            resetAddForm();
             fetchData('body');
             close_info();
           },
