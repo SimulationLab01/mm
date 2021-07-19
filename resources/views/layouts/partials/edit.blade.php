@@ -196,6 +196,7 @@
       </div>
       <div class="rp_btn_field">
         <!-- <button id="borrowBtn" type="button" name="submitBtn" class="btn btn-success group_v">使用登記</button> -->
+        <button id="closeBtn" type="button" name="submitBtn" class="btn btn-success group_v">取消</button>
         <button id="editMenuBtn" type="button" name="submitBtn" class="btn btn-success group_v"><i class="fas fa-pencil-alt"></i> 編輯 <i class="fas fa-caret-down"></i></button>
         <button id="editNBtn" type="button" name="submitBtn" class="btn btn-success group_e">取消</button>
         <button id="editYBtn" type="button" name="submitBtn" class="btn btn-success group_e">完成</button>

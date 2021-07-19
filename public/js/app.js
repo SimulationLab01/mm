@@ -284,11 +284,15 @@ var App = function() {
     $('#borrowBtn').on("click", borrowBtnClick);
 
     $('#editMenuBtn').on("click", editMenuBtnClick);
+    $('#closeBtn').on("click", closeBtnClick);
     $('#editBtn').on("click", editBtnClick);
     $('#editNBtn').on("click", editNBtnClick);
     $('#editYBtn').on("click", editYBtnClick);
     $('#deleteBtn').on("click", deleteBtnClick);
     $('#detractBtn').on("click", detractBtnClick);
+
+    $('body').on("click", bodyClick);
+    $(document).on('keyup', keyPress);
   }
 
   function handleDateRange() {
@@ -745,6 +749,10 @@ var App = function() {
       })
   }
 
+  function closeBtnClick () {
+    close_info();
+  }
+
   function editMenuBtnClick () {
     if( $('.rp_editmenu_field').hasClass('hide') )
       $('.rp_editmenu_field').removeClass('hide');
@@ -847,6 +855,18 @@ var App = function() {
     alert('detract');
     highLightRow.removeClass('highlight');
     close_info();
+  }
+
+  function bodyClick(e) {
+    if( $(e.target).closest("#table").length > 0 ) {
+        return false;
+    }
+    close_info();
+  }
+  function keyPress (e) {
+    if (e.keyCode == 27) {
+       close_info();
+    }
   }
 
 ////////////////////// End Events /////////////////////
@@ -974,6 +994,7 @@ var App = function() {
   function close_info() {
     $('.right_pannel').removeClass('show');
     $('.rp_editmenu_field').addClass('hide');
+    $('#table tbody .highlight').removeClass('highlight');
   }
 
   function mapAtt(key) {
