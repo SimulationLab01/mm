@@ -858,10 +858,11 @@ var App = function() {
   }
 
   function bodyClick(e) {
-    if( $(e.target).closest("#table").length > 0 ) {
-        return false;
+    var id = $(e.target).attr('id');
+    if(id == 'body' || id == 'm_partial')
+    {
+      close_info();
     }
-    close_info();
   }
   function keyPress (e) {
     if (e.keyCode == 27) {
