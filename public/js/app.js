@@ -291,7 +291,8 @@ var App = function() {
     $('#deleteBtn').on("click", deleteBtnClick);
     $('#detractBtn').on("click", detractBtnClick);
 
-    $('body').on("click", bodyClick);
+    //$('body').on("click", bodyClick);
+    $('body').on("mousedown", bodyClick);
     $(document).on('keyup', keyPress);
   }
 
@@ -859,11 +860,11 @@ var App = function() {
 
   function bodyClick(e) {
     var id = $(e.target).attr('id');
-    if(id == 'body' || id == 'm_partial')
-    {
+    if(id == 'body' || id == 'm_partial') {
       close_info();
     }
   }
+
   function keyPress (e) {
     if (e.keyCode == 27) {
        close_info();
