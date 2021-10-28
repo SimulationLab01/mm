@@ -11,6 +11,7 @@ var App = function() {
   var typeList;
   var highLightRow;
   var numberThreshold = 10;
+  var searchValue = '';
 
   //新增欄位驗證參數
   var n_valided = $('#insert-form')
@@ -313,6 +314,15 @@ var App = function() {
     });
   }
 
+  // function refreshData() {
+  //   var opt = {
+  //       url: '/api/materials',
+  //       silent: true,
+  //   };
+  //   $('#table').bootstrapTable('refresh',opt);
+  //   alert('refresh');
+  // }
+
   function fetchData(page) {
     //alert('fetch: '+page)
     var ajax_url = '/ajax/'+page;
@@ -372,7 +382,7 @@ var App = function() {
     }
   }
 
-  function fillBody(data)
+  function fillBody(data,options)
   {
     //alert('fillBody : '+data)
     data.columns[0]['align'] = 'center';
@@ -408,6 +418,7 @@ var App = function() {
 
     $('#table').bootstrapTable({
       search: true,
+      searchText: searchValue, 
       //showRefresh: true,
       buttonsAlign: "left",
       //clickToSelect: true, 
@@ -416,7 +427,8 @@ var App = function() {
       onAll: tableEvents,
       //onPreBody: sorting,
       //onPostBody: resetView,
-      onClickRow: rowClick
+      onClickRow: onRowClick,
+      onSearch: onTableSearch,
     })
     //alert('fillBody');
   }
@@ -603,7 +615,7 @@ var App = function() {
     $('body').loading('stop');
   }
 
-  function rowClick (row, $element, field) {
+  function onRowClick (row, $element, field) {
     highLightRow = $element;
     if (field !== 'STATUS') {
       if($element.hasClass('highlight'))
@@ -618,6 +630,11 @@ var App = function() {
       }
     }
     // $(row).addClass('highlight').siblings().removeClass('highlight');
+  }
+
+  function onTableSearch (text)
+  {
+    searchValue = text;
   }
 
   function attrChange() {
@@ -808,6 +825,7 @@ var App = function() {
           success: function(data) {
             resetUpdateForm();
             fetchData('body');
+            //refreshData();
             close_info();
           },
           error:function(xhr, ajaxOptions, thrownError){
