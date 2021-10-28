@@ -226,6 +226,9 @@ tbody {
 	.right_pannel.show {
 		left: 50%;
 	}
+	.rounded-Btn {
+		left: 88%;
+	}
 }
 
 @media (max-width: 991px) {
@@ -240,6 +243,9 @@ tbody {
 	.right_pannel.show {
 		left: 0%;
 	}
+	.rounded-Btn {
+		left:86%;
+	}
 	.rp_content {
 		height: auto;
 	}
@@ -252,6 +258,12 @@ tbody {
 	}
 	.rp_nav li{
 		float: left;
+	}
+}
+
+@media (max-width: 750px) {
+	.rounded-Btn {
+		left: 70%;
 	}
 }
 
