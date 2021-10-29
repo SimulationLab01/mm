@@ -44,6 +44,11 @@ tbody {
 	margin-right: 30px;
 	font-size: 19px;
 }
+@media (max-width: 991px) {
+	.count-title {
+		position: static;
+	}
+}
 /*end table*/
 
 /*edit*/
