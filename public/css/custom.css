@@ -270,6 +270,23 @@ tbody {
 	.rounded-Btn {
 		left: 70%;
 	}
+	.daterangepicker {
+		top: 0px !important;
+		left: 0px !important;
+		width: 100% !important;
+		height: 100% !important;
+		position: fixed !important;
+	}
+	.drp-calendar {
+		padding: 8px !important;
+		width: 100% !important;
+		height: 50% !important;
+		max-width: 100% !important;
+	}
+	.calendar-table, .table-condensed {
+		width: 100% !important;
+		height: 100% !important;
+	}
 }
 
 /*end edit*/
