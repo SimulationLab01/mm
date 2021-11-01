@@ -295,6 +295,10 @@ var App = function() {
     //$('body').on("click", bodyClick);
     $('body').on("mousedown", bodyClick);
     $(document).on('keyup', keyPress);
+    $('#br_dates').keypress(function(event) {
+       event.preventDefault();
+       return false;
+    });
   }
 
   function handleDateRange() {
