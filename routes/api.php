@@ -17,8 +17,13 @@ Route::prefix('materials')->group(function () {
     Route::get('/typeList', 'MaterialsController@get_m_type_list');
     Route::get('/{id}', 'MaterialsController@get_one');
     Route::post('/create', 'MaterialsController@create_one');
-    Route::post('/edit/{id}', 'MaterialsController@update_one');
+    Route::post('/edit/{id}/{event?}', 'MaterialsController@update_one');
     Route::get('/delete/{id}', 'MaterialsController@delete_one');
+});
+
+Route::prefix('history')->group(function () {
+    Route::get('/', 'HistoryController@get_all');
+    Route::get('/{id}', 'HistoryController@get_h_col_data');
 });
 
 

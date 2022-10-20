@@ -29,13 +29,29 @@ class MaterialsController extends Controller
         echo(json_encode($request->all()));
         $mInfo = MaterialsEntity::create($request->all());
 
+        $hInfo = [
+            'ID' => $mInfo->ID,
+            'EVENT' => 1,
+            'WHO' => $mInfo->USER,
+            'PURPOSE' => $mInfo->PURPOSE,
+        ];
+        app('App\Http\Controllers\HistoryController')->create_one_from_ctl($hInfo);
+
         return response()->json($mInfo, 201);
     }
 
-    public function update_one(Request $request, $id)
+    public function update_one(Request $request, $id, $event='')
     {
         $mInfo = MaterialsEntity::findOrFail($id);
         $mInfo->update($request->all());
+
+        $hInfo = [
+            'ID' => $id,
+            'EVENT' => $event,
+            'WHO' => $request->USER,
+            'PURPOSE' => $request->PURPOSE,
+        ];
+        app('App\Http\Controllers\HistoryController')->create_one_from_ctl($hInfo);
 
         return response()->json($mInfo, 200);
     }
@@ -44,9 +60,16 @@ class MaterialsController extends Controller
     {
         MaterialsEntity::find($id)->delete();
 
+        $hInfo = [
+            'ID' => $id,
+            'EVENT' => 3,
+            'WHO' => '',
+            'PURPOSE' => '',
+        ];
+        app('App\Http\Controllers\HistoryController')->create_one_from_ctl($hInfo);
+
         return response()->json(null, 204);
     }
-
 
     //// ====more than basic CRUD==== ////
     public function get_m_col_data()

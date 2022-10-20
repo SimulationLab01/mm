@@ -87,14 +87,18 @@
       </form>
     </div>
     <div id="history" class="group_h">
-      <div>
-        <div class="h_head">
+      <!-- <div class="h_list">
+        <div class="h_date">
           2021.02.21 16:45
         </div>
         <div class="h_body">
-          No. <label class="">Jay 將品項 歸還</label>
+          <label>
+            <span class="h_name">Jay</span>
+            <span class="h_event">歸還</span>
+            品項 
+          </label>
         </div>
-      </div>
+      </div> -->
     </div>
     <div id="generator" class="group_n">
       <form id="insert-form" class="form-horizontal">

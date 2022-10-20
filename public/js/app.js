@@ -714,7 +714,8 @@ var App = function() {
   }
 
   function historyTabClick () {
-    view_history();
+    id = $('#v_id').text()
+    view_history(id);
   }
 
   function borrowBtnClick(id,user,purpose,date) {
@@ -726,7 +727,7 @@ var App = function() {
                   "STATUS": 2
                 };
     $.ajax({
-          url: "/api/materials/edit/"+id,
+          url: "/api/materials/edit/"+id+"/4",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -752,7 +753,7 @@ var App = function() {
                   "STATUS": 1
                 };
     $.ajax({
-          url: "/api/materials/edit/"+id,
+          url: "/api/materials/edit/"+id+"/5",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -821,7 +822,7 @@ var App = function() {
       }
 
       $.ajax({
-          url: "/api/materials/edit/"+id,
+          url: "/api/materials/edit/"+id+"/2",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -982,8 +983,32 @@ var App = function() {
   }
   
   function view_history(key) { 
+    ajax_url = '/api/history/'+key;
     $('.group_e, .group_v, .group_n').addClass('hide');
     $('.group_h').removeClass('hide');
+    $('#history').empty()
+    $.ajax({
+      type: "GET",
+      url: ajax_url,
+      success: function(data) {
+        data.forEach(function(v){
+          //alert(v.EVENT)
+          html = "<div class='h_list'>"+
+                  "<div class='h_date'>"+v.updated_at+"</div>"+
+                  "<div class='h_body'>"+
+                  "<label>"+
+                  "<span class='h_name'>"+(v.WHO==null?'':v.WHO)+"</span>"+
+                  "<span class='h_event'>"+v.EVENT+"</span>"+
+                  "品項"+ 
+                  "</label></div></div>"
+                
+          $('#history').append(html)
+        });
+      },
+      error:function(error){
+        console.log(error)
+      }
+    })
     //alert(mData.ID)
   }
 
