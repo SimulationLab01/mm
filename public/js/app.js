@@ -4,6 +4,13 @@
 * Author: @htmlstream
 * Website: http://htmlstream.com
 */
+/********************************************************** */
+/*
+進入點 ->pageSel    獲取分頁模板
+      ->fetchData   獲取分頁資料
+      ->fillbody    填入分頁內容
+ */
+/********************************************************** */
 
 var App = function() {
 
@@ -220,6 +227,21 @@ var App = function() {
       }
     })
 
+  $(window).on('beforeunload', function(){
+    scrollToTop()
+  });
+
+  function scrollToLast()
+  {
+    scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    window.scrollTo(0,scrollMax-600);
+  }
+
+  function scrollToTop()
+  {
+    window.scrollTo(0, 0);
+  }
+
   function handleHeader() {
     // jQuery to collapse the navbar on scroll
     if ($('.navbar').offset().top > 150) {
@@ -239,7 +261,8 @@ var App = function() {
        $(".nav").find(".active").removeClass("active");
        $(this).parent().addClass("active");
        var page = $(this).attr('href').replace('#','');
-       fetchData(page);
+       pageSel(page);
+       window.scrollTo(0, 0);
         //e.preventDefault();
     });
   }
@@ -327,8 +350,8 @@ var App = function() {
   //   alert('refresh');
   // }
 
-  function fetchData(page) {
-    //alert('fetch: '+page)
+  function pageSel(page)
+  {
     var ajax_url = '/ajax/'+page;
     $("body").loading();
     //load HTML View
@@ -340,24 +363,14 @@ var App = function() {
         },
         success: function(data) {
           pageLayout = data;
-          ajax_url = '/api/materials';
-          // ajax_url = '/materials';
-          $.ajax({
-            type: "GET",
-            url: ajax_url,
-            dataType: 'json',
-            success: function(data) {
-              //alert(data.columns[0].field)
-              $('#m_partial').html(pageLayout);
-              pageSel(page,data);          
-              $('body').loading('stop');
-              //handleDateRange();
-            },
-            error:function(error){
-              console.log(error);
-              $('body').loading('stop');
-            }
-          });
+          $('#m_partial').html(pageLayout);
+          fetch_data = fetchData(page);
+          var fill_data = {
+            "PAGE": page,
+            "DATA": fetch_data
+          };
+          fillBody(fill_data);
+          $('body').loading('stop');
         },
         error:function(error){
           console.log(error)
@@ -365,76 +378,86 @@ var App = function() {
     })
   }
 
-  function pageSel(page,data) 
-  {
-    //alert('pageSel: '+page+','+data);
+  function fetchData(page) {
+    var returnData = ''
     if(page == 'body')
-    {
-      fillBody(data);
-    }
-    else if(page == 'detract')
-    {
-      alert('detract');
-    }
-    else if(page == 'check')
-    {
-      alert('check');
-    }
-    else if(page == 'delete')
-    {
-      alert('delete');
-    }
+      ajax_url = '/api/materials';
+    // else if(page == 'detract')
+    //   alert('detract');
+    // else if(page == 'check')
+    //   alert('check');
+    // else if(page == 'delete')
+    //   alert('delete');
+    
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: ajax_url,
+      dataType: 'json',
+      success: function(data) {
+        $('#m_partial').html(pageLayout);       
+        returnData = data;
+      },
+      error:function(error){
+        console.log(error);
+        $('body').loading('stop');
+      }
+    });
+    
+    return returnData;
   }
 
-  function fillBody(data,options)
+  function fillBody(options)
   {
-    //alert('fillBody : '+data)
-    data.columns[0]['align'] = 'center';
-    data.columns[0]['valign'] = 'middle';
+    data = options.DATA;
+    page = options.PAGE;
+    if(page == 'body')
+    {
+      data.columns[0]['align'] = 'center';
+      data.columns[0]['valign'] = 'middle';
 
-    data.columns[1]['align'] = 'center';
-    data.columns[1]['valign'] = 'middle';
-    data.columns[1]['width'] = 50;
-    data.columns[1]['formatter'] = attLook;
+      data.columns[1]['align'] = 'center';
+      data.columns[1]['valign'] = 'middle';
+      data.columns[1]['width'] = 50;
+      data.columns[1]['formatter'] = attLook;
 
-    data.columns[7]['align'] = 'center';
-    data.columns[7]['valign'] = 'middle';
-    data.columns[7]['width'] = 100;
-    data.columns[7]['events'] = statusEvents;
-    data.columns[7]['formatter'] = statusLook;
+      data.columns[7]['align'] = 'center';
+      data.columns[7]['valign'] = 'middle';
+      data.columns[7]['width'] = 100;
+      data.columns[7]['events'] = statusEvents;
+      data.columns[7]['formatter'] = statusLook;
 
-    var ajax_url = '/api/materials/counts';
-    // var ajax_url = '/materials/counts';
-    $.ajax({
-        type: "GET",
-        url: ajax_url,
-        dataType: 'json',
-        success: function(data) {
-          //alert(data.count[0]);
-          $('#count-rich').text(data.count[0]);
-          $('#count-normal').text(data.count[1]);
-          $('#count-cheap').text(data.count[2]);
-        },
-        error:function(error){
-          console.log(error);
-        }
-    });
+      var ajax_url = '/api/materials/counts';
+      $.ajax({
+          type: "GET",
+          url: ajax_url,
+          dataType: 'json',
+          success: function(data) {
+            //alert(data.count[0]);
+            $('#count-rich').text(data.count[0]);
+            $('#count-normal').text(data.count[1]);
+            $('#count-cheap').text(data.count[2]);
+          },
+          error:function(error){
+            console.log(error);
+          }
+      });
 
-    $('#table').bootstrapTable({
-      search: true,
-      searchText: searchValue, 
-      //showRefresh: true,
-      buttonsAlign: "left",
-      //clickToSelect: true, 
-      columns: data.columns,
-      data: data.data,
-      onAll: tableEvents,
-      //onPreBody: sorting,
-      //onPostBody: resetView,
-      onClickRow: onRowClick,
-      onSearch: onTableSearch,
-    })
-    //alert('fillBody');
+      $('#table').bootstrapTable({
+        search: true,
+        searchText: searchValue, 
+        //showRefresh: true,
+        buttonsAlign: "left",
+        //clickToSelect: true, 
+        columns: data.columns,
+        data: data.data,
+        onAll: tableEvents,
+        //onPreBody: sorting,
+        //onPostBody: resetView,
+        onClickRow: onRowClick,
+        onSearch: onTableSearch,
+      })
+    }
   }
 
 
@@ -695,8 +718,9 @@ var App = function() {
           dataType: "html",
           success: function(data) {
             resetAddForm();
-            fetchData('body');
+            pageSel('body');
             close_info();
+            scrollToLast();
           },
           error:function(xhr, ajaxOptions, thrownError){
             alert(xhr.status);
@@ -829,7 +853,7 @@ var App = function() {
           dataType: "html",
           success: function(data) {
             resetUpdateForm();
-            fetchData('body');
+            pageSel('body');
             //refreshData();
             close_info();
           },
@@ -861,7 +885,7 @@ var App = function() {
               cache: false,
               dataType: "json",
               success: function(data) {
-                fetchData('body');
+                pageSel('body');
                 close_info();
               },
               error:function(xhr, ajaxOptions, thrownError){
@@ -1066,7 +1090,7 @@ var App = function() {
       handleHeader();
       handleNavbar();
       handleControlPannel();
-      fetchData("body");
+      pageSel("body");
     },
   };
 
