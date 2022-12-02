@@ -6,6 +6,7 @@
     </ul>
   </nav>
   <div class="row rp_content">
+
     <div id="viewer" class="group_v group_e">
       <form method="post" enctype="multipart/form-data" id="update-form" class="form-horizontal">
         <div class="form-group row">
@@ -39,7 +40,6 @@
             <input id="e_place" name="e_place" type="text" class="form-control v_input group_e"  placeholder="">
           </div>
         </div>
-
         <div class="form-group row att_c">
             <label class="col-sm-3 v_field">數量</label>
             <div class="col-sm-9 v_text">
@@ -47,7 +47,6 @@
               <input id="e_number" name="e_number" class="form-control v_input group_e" type="number" min="1" max="1000" placeholder="數量">
             </div>
         </div>
-
         <div class="form-group row att_c">
             <label class="col-sm-3 v_field">單位</label>
             <div class="col-sm-9 v_text">
@@ -78,6 +77,13 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-3 v_field">料號</label>
+          <div class="col-sm-9 v_text">
+            <label id="v_purchase_num" class="v_value group_v">OOO</label>
+            <input type="text" class="form-control v_input group_e" id="e_purchase_num" name="e_user" placeholder="">
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
           <div class="col-sm-9 v_text">
             <label id="v_price" class="v_value group_v">OOO</label>
@@ -86,6 +92,7 @@
         </div>
       </form>
     </div>
+
     <div id="history" class="group_h">
       <!-- <div class="h_list">
         <div class="h_date">
@@ -100,6 +107,7 @@
         </div>
       </div> -->
     </div>
+
     <div id="generator" class="group_n">
       <form id="insert-form" class="form-horizontal">
         <div class="form-group row">
@@ -156,6 +164,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-3 v_field">料號</label>
+          <div class="col-sm-9 v_text">
+            <input id="n_purchase_num" name="n_purchase_num" class="form-control" type="text" placeholder="料號">
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-3 v_field">價格</label>
           <div class="col-sm-9 v_text">
             <input id="n_price" name="n_price" class="form-control" type="number" placeholder="NTD">
@@ -172,7 +186,7 @@
         <div class="form-group row">
           <label class="col-sm-3 v_field">附註</label>
           <div class="col-sm-9 v_text">
-            <textarea id="n_note" name="n_note" class="form-control" rows="4" placeholder="附註"></textarea>
+            <textarea id="n_note" name="n_note" class="form-control" rows="3" placeholder="附註"></textarea>
           </div>
         </div>
 <!--         <div class="form-group row">

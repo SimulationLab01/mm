@@ -58,7 +58,8 @@ class MaterialsEntity extends Model
                                 'materials.updated_at',
                                 DB::raw("DATE_FORMAT(materials.updated_at, '%Y-%m-%d') as updated_at"), 
                                 //'m_status.STATUS_NAME',
-                                'materials.STATUS')
+                                'materials.STATUS',
+                                'materials.PURCHASE_NUM')
                         ->orderBy('materials.ID')
                         ->whereNull('deleted_at')
                         ->get();

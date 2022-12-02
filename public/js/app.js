@@ -13,8 +13,7 @@
 /********************************************************** */
 
 var App = function() {
-
-  var mData;
+  var mData; //material data temp
   var typeList;
   var highLightRow;
   var numberThreshold = 10;
@@ -231,15 +230,30 @@ var App = function() {
     scrollToTop()
   });
 
-  function scrollToLast()
-  {
-    scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    window.scrollTo(0,scrollMax-600);
+  function enableScroll() {
+    window.onscroll = function() {};
+  }
+
+  function disableScroll() {
+    // Get the current page scroll position
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+  
+    // if any scroll is attempted, set this to the previous value
+    window.onscroll = function() {
+        window.scrollTo(scrollLeft, scrollTop);
+    };
   }
 
   function scrollToTop()
   {
     window.scrollTo(0, 0);
+  }
+
+  function scrollToLast()
+  {
+    scrollMax = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    window.scrollTo(0,scrollMax-600);
   }
 
   function handleHeader() {
@@ -269,17 +283,15 @@ var App = function() {
 
   function handleControlPannel() {
     $('.v_input').addClass('hide');
-
     $.ajax({
       type: "GET",
       url: "api/materials/typeList",
-      // url: "materials/typeList",
       success: function(data) {
         attrList = data.attr;
         $.each(attrList, function (i, item) {
             $('#e_attr, #n_attr').append($('<option>', { 
                 value: item.ID,
-                text : item.ATTR_NAME 
+                text : item.ATTR_NAME
             }));
         });
 
@@ -297,16 +309,12 @@ var App = function() {
     })
 
     $('#n_attr').on('change', attrChange);
-
     $('#addBtn').on("click", addBtnClick);
     $('#addNBtn').on("click", addNBtnClick);
     $('#addYBtn').on("click", addYBtnClick);
-
     $('#viewTab').on("click", viewTabClick);
     $('#historyTab').on("click", historyTabClick);
-
     $('#borrowBtn').on("click", borrowBtnClick);
-
     $('#editMenuBtn').on("click", editMenuBtnClick);
     $('#closeBtn').on("click", closeBtnClick);
     $('#editBtn').on("click", editBtnClick);
@@ -415,12 +423,10 @@ var App = function() {
     {
       data.columns[0]['align'] = 'center';
       data.columns[0]['valign'] = 'middle';
-
       data.columns[1]['align'] = 'center';
       data.columns[1]['valign'] = 'middle';
       data.columns[1]['width'] = 50;
       data.columns[1]['formatter'] = attLook;
-
       data.columns[7]['align'] = 'center';
       data.columns[7]['valign'] = 'middle';
       data.columns[7]['width'] = 100;
@@ -459,23 +465,7 @@ var App = function() {
       })
     }
   }
-
-
-  function disableScroll() {
-    // Get the current page scroll position
-    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-  
-    // if any scroll is attempted, set this to the previous value
-    window.onscroll = function() {
-        window.scrollTo(scrollLeft, scrollTop);
-    };
-  }
     
-  function enableScroll() {
-    window.onscroll = function() {};
-  }
-
 //////////////////////Events/////////////////////
   function statusLook(value,row,index) {
     var val = value;
@@ -630,12 +620,10 @@ var App = function() {
       off: '使用中',
       size: 'small'
     });
-    //alert(name)
   }
 
   function sorting() {
     $("body").loading();
-    //alert('sort')
   }
 
   function resetView() {
@@ -684,7 +672,6 @@ var App = function() {
     //手動觸發驗證
     bootstrapValidator.validate();
     if(bootstrapValidator.isValid()){
-      //alert('update');
       var status;
       if($("#n_attr").val() == 3) 
         if($("#n_number").val() > numberThreshold)
@@ -707,6 +694,7 @@ var App = function() {
                   "PRICE": $("#n_price").val(),
                   "NOTE": $("#n_note").val(),
                   "PURPOSE": $("#n_purpose").val(),
+                  "PURCHASE_NUM": $("#n_purchase_num").val(),
                   "OWNED": $("[name='optradio']:checked").val(),
                   "STATUS": status
                 };
@@ -730,7 +718,6 @@ var App = function() {
       })
     }
     //alert($("[name='optradio']:checked").val())
-    
   }
 
   function viewTabClick () {
@@ -743,7 +730,6 @@ var App = function() {
   }
 
   function borrowBtnClick(id,user,purpose,date) {
-    //alert(date);
     var dataJSON = {
                   "USER": user,
                   "RETURN_DATE": date,
@@ -759,8 +745,6 @@ var App = function() {
           success: function(data) {
             $.alert(user + ' 借用完成');
             //$('#insert-form')[0].reset();
-            //fetchData('body');
-            //close_info();
           },
           error:function(xhr, ajaxOptions, thrownError){
             alert(xhr.status);
@@ -784,9 +768,6 @@ var App = function() {
           dataType: "html",
           success: function(data) {
             //$('#insert-form')[0].reset();
-            //fetchData('body');
-            //alert(date);
-            //close_info();
           },
           error:function(xhr, ajaxOptions, thrownError){
             alert(xhr.status);
@@ -805,7 +786,6 @@ var App = function() {
       $('.rp_editmenu_field').removeClass('hide');
     else
       $('.rp_editmenu_field').addClass('hide');
-    //edit_info();
   }
 
   function editBtnClick () {
@@ -833,6 +813,7 @@ var App = function() {
             "SPEC": $("#e_spec").val(),
             "USER": $("#e_user").val(),
             "PURPOSE": $("#e_purpose").val(),
+            "PURCHASE_NUM": $("#e_purchase_num").val(),
             "PRICE": $("#e_price").val()
           };
       var status;
@@ -854,7 +835,6 @@ var App = function() {
           success: function(data) {
             resetUpdateForm();
             pageSel('body');
-            //refreshData();
             close_info();
           },
           error:function(xhr, ajaxOptions, thrownError){
@@ -864,13 +844,10 @@ var App = function() {
           }
       })
     }
-    //view_info();
   }
 
   function deleteBtnClick() {
-    //alert('delete');
     var id = $("#v_id").text();
-    //alert(id);
     $.confirm({
         title: '刪除確認',
         content: '是否確認要刪除資產。',
@@ -922,7 +899,6 @@ var App = function() {
 
   function setFormByAttr(attr) {
     //var attr = $('#n_attr').val();
-    
     if (attr == 1)
     {
       $('.att_b, .att_c').addClass('hide');
@@ -930,7 +906,6 @@ var App = function() {
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
-
       $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
       $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
     }
@@ -941,7 +916,6 @@ var App = function() {
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
-
       $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
       $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
     }
@@ -952,7 +926,6 @@ var App = function() {
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', true, 'notEmpty');
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', true, 'notEmpty');
       $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
-
       $('#update-form').bootstrapValidator('enableFieldValidators','e_number', true, 'notEmpty');
       $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', true, 'notEmpty');
     }
@@ -970,7 +943,6 @@ var App = function() {
 
   function view_info(key) { 
     var ajax_url = '/api/materials/'+key;
-    // var ajax_url = '/materials/'+key;
     $('#viewTab').addClass('active');
     $('#historyTab').removeClass('active');
     $('.group_h, .group_e, .group_n').addClass('hide');
@@ -997,6 +969,7 @@ var App = function() {
           $('#v_user').text( data.USER == null ? "" : data.USER );
           $('#v_purpose').text( data.PURPOSE == null ? "" : data.PURPOSE );
           $('#v_price').text(data.PRICE);
+          $('#v_purchase_num').text(data.PURCHASE_NUM);
           $('.right_pannel').addClass('show');
         },
         error:function(error){
@@ -1016,7 +989,6 @@ var App = function() {
       url: ajax_url,
       success: function(data) {
         data.forEach(function(v){
-          //alert(v.EVENT)
           html = "<div class='h_list'>"+
                   "<div class='h_date'>"+v.updated_at+"</div>"+
                   "<div class='h_body'>"+
@@ -1033,15 +1005,12 @@ var App = function() {
         console.log(error)
       }
     })
-    //alert(mData.ID)
   }
 
   function edit_info(key) { 
     var ajax_url = '/api/materials/'+key;
-    // var ajax_url = '/materials/'+key;
     $('.group_h, .group_v, .group_n').addClass('hide');
     $('.group_e').removeClass('hide');
-
     $('#e_name').val(mData.NAME);
     $('#e_type').val(mData.TYPE);
     $('#e_place').val(mData.PLACE);
@@ -1050,6 +1019,7 @@ var App = function() {
     $('#e_spec').val(mData.SPEC);
     $('#e_user').val(mData.USER);
     $('#e_purpose').val(mData.PURPOSE);
+    $('#e_purchase_num').val(mData.PURCHASE_NUM);
     $('#e_price').val(mData.PRICE);
   }
 
@@ -1057,11 +1027,8 @@ var App = function() {
     var attr = $('#n_attr').val();
     $('.group_e, .group_v, .group_h').addClass('hide');
     $('.group_n').removeClass('hide');
-
     setFormByAttr(attr);
-
     $('.right_pannel').addClass('show');
-    //alert(mData.ID)
   }
 
   function close_info() {
