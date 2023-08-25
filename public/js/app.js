@@ -18,6 +18,7 @@ var App = function() {
   var highLightRow;
   var numberThreshold = 10;
   var searchValue = '';
+  var root_path = "/mm/public"
 
   //新增欄位驗證參數
   var n_valided = $('#insert-form')
@@ -285,7 +286,7 @@ var App = function() {
     $('.v_input').addClass('hide');
     $.ajax({
       type: "GET",
-      url: "api/materials/typeList",
+      url: root_path+"/api/materials/typeList",
       success: function(data) {
         attrList = data.attr;
         $.each(attrList, function (i, item) {
@@ -360,7 +361,7 @@ var App = function() {
 
   function pageSel(page)
   {
-    var ajax_url = '/ajax/'+page;
+    var ajax_url = root_path+'/ajax/'+page;
     $("body").loading();
     //load HTML View
     $.ajax({
@@ -389,7 +390,7 @@ var App = function() {
   function fetchData(page) {
     var returnData = ''
     if(page == 'body')
-      ajax_url = '/api/materials';
+      ajax_url = root_path+'/api/materials';
     // else if(page == 'detract')
     //   alert('detract');
     // else if(page == 'check')
@@ -433,7 +434,7 @@ var App = function() {
       data.columns[7]['events'] = statusEvents;
       data.columns[7]['formatter'] = statusLook;
 
-      var ajax_url = '/api/materials/counts';
+      var ajax_url = root_path+'/api/materials/counts';
       $.ajax({
           type: "GET",
           url: ajax_url,
@@ -699,7 +700,7 @@ var App = function() {
                   "STATUS": status
                 };
       $.ajax({
-          url: "/api/materials/create",
+          url: root_path+"/api/materials/create",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -737,7 +738,7 @@ var App = function() {
                   "STATUS": 2
                 };
     $.ajax({
-          url: "/api/materials/edit/"+id+"/4",
+          url: root_path+"/api/materials/edit/"+id+"/4",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -761,7 +762,7 @@ var App = function() {
                   "STATUS": 1
                 };
     $.ajax({
-          url: "/api/materials/edit/"+id+"/5",
+          url: root_path+"/api/materials/edit/"+id+"/5",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -827,7 +828,7 @@ var App = function() {
       }
 
       $.ajax({
-          url: "/api/materials/edit/"+id+"/2",
+          url: root_path+"/api/materials/edit/"+id+"/2",
           type: "POST",
           cache: false,
           data: dataJSON,
@@ -857,7 +858,7 @@ var App = function() {
           },
           確認: function () {
             $.ajax({
-              url: "/api/materials/delete/"+id,
+              url: root_path+"/api/materials/delete/"+id,
               type: "GET",
               cache: false,
               dataType: "json",
@@ -942,7 +943,7 @@ var App = function() {
   }
 
   function view_info(key) { 
-    var ajax_url = '/api/materials/'+key;
+    var ajax_url = root_path+'/api/materials/'+key;
     $('#viewTab').addClass('active');
     $('#historyTab').removeClass('active');
     $('.group_h, .group_e, .group_n').addClass('hide');
@@ -980,7 +981,7 @@ var App = function() {
   }
   
   function view_history(key) { 
-    ajax_url = '/api/history/'+key;
+    ajax_url = root_path+'/api/history/'+key;
     $('.group_e, .group_v, .group_n').addClass('hide');
     $('.group_h').removeClass('hide');
     $('#history').empty()
@@ -1008,7 +1009,7 @@ var App = function() {
   }
 
   function edit_info(key) { 
-    var ajax_url = '/api/materials/'+key;
+    var ajax_url = root_path+'/api/materials/'+key;
     $('.group_h, .group_v, .group_n').addClass('hide');
     $('.group_e').removeClass('hide');
     $('#e_name').val(mData.NAME);
