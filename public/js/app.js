@@ -18,7 +18,7 @@ var App = function() {
   var highLightRow;
   var numberThreshold = 10;
   var searchValue = '';
-  var root_path = "/mm/public"
+  var root_path = "/mm_pd5/public"
 
   //新增欄位驗證參數
   var n_valided = $('#insert-form')

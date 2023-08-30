@@ -2,21 +2,20 @@
         <div class="container content-lg">
             <div class="title-v1">
                 <h2>Contact Us</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <br>
-                It has been the industry's standard dummy text.</p>
+                <p></p>
             </div>
 
             <div class="row contacts-in">
                 <div class="col-md-6 md-margin-bottom-40">
                     <ul class="list-unstyled">
+                        <li><i class="fa fa-globe"></i>ACE LAB</li>
                         <li><i class="fa fa-home"></i>大帝國 B棟 3F</li>
                         <li><i class="fa fa-phone"></i>15917</li>
-                        <li><i class="fa fa-envelope"></i> <a href="chuanlc_wang@example.com">chuanlc_wang@example.com</a></li>
-                        <li><i class="fa fa-globe"></i> <a href="http://htmlstream.com">www.htmlstream.com</a></li>
+                        <li><i class="fa fa-envelope"></i> <a href="chuanlc_wang@compal.com">chuanlc_wang@compal.com</a></li>
                     </ul>
                 </div>
 
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <form action="assets/php/sky-forms-pro/demo-contacts-process.php" method="post" id="sky-form3" class="sky-form contact-style">
                         <fieldset>
                             <label>Name</label>
@@ -54,7 +53,7 @@
                             <p>Your message was successfully sent!</p>
                         </div>
                     </form>
-                </div>
+                </div> -->
             </div>
         </div>
 

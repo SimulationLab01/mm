@@ -1,0 +1,17 @@
+/*********資料庫搬移*********/
+更改檔案
+1.修改.env
+    DB_DATABASE= DBNAME
+    DB_USERNAME= 帳號
+    DB_PASSWORD= 密碼
+2. 修改.env ROOT_PATH
+3. 修改public/js/app.js root_path
+
+/*********Git Clone步驟********/
+
+
+/***********資料庫常用***********/
+-AUTO_INCREMENT 歸零
+    ALTER TABLE `materials` AUTO_INCREMENT=1;
+
+

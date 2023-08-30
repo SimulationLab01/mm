@@ -18,19 +18,19 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <div class="menu-container">
                     <ul class="log-reg-block visible-md-block visible-lg-block">
-                        <li class="cd-log_reg">
+                        <!-- <li class="cd-log_reg">
                             <a class="cd-signin" href="javascript:void(0);">登入</a>
                         </li>
                         <li class="cd-log_reg">
                             <a class="cd-signup" href="javascript:void(0);">註冊</a>
-                        </li>
+                        </li> -->
                     </ul>
 
                     <ul class="nav navbar-nav">
                         <li class="page-scroll home">
                             <a href="#body">現有資產</a>
                         </li>
-                        <li class="page-scroll">
+                        <!-- <li class="page-scroll">
                             <a href="#detract">減損資產</a>
                         </li>
                         <li class="page-scroll">
@@ -44,7 +44,7 @@
                         </li>
                         <li class="cd-log_reg visible-xs-block visible-sm-block">
                             <a class="cd-signup" href="javascript:void(0);">註冊</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
