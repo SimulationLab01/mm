@@ -149,7 +149,7 @@ a:hover {
 /*Navbar*/
 .one-page-header {
   border-bottom: none;
-  background: rgba(0,0,0,0.4);
+  background: rgba(255, 255, 255, 0.8);
 }
 .one-page-header .container {
   position: relative;
@@ -198,7 +198,7 @@ a:hover {
 .one-page-header.top-nav-collapse .dropdown-menu > .active > a:focus {
   z-index: 1;
   background: none;
-  color: #72c02c !important;
+  color: #777 !important;
 }
 
 /*Responsive Navbar*/

@@ -29,7 +29,7 @@
 
 
     <!-- JS Page Level-->
-<script type="text/javascript" src="{{env('ROOT_PATH')}}/js/app.js"></script>
+<script type="text/javascript" src="{{env('ROOT_PATH')}}/js/app.js?20231101"></script>
 <!--     <script src="/js/forms/login.js"></script>
     <script src="/js/forms/contact.js"></script>
     <script src="/js/plugins/pace-loader.js"></script> -->

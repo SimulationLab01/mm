@@ -209,7 +209,6 @@
     <div class="row" align="right">
       <div class="rp_editmenu_field list-group hide">
         <a id="deleteBtn" class="list-group-item">刪除</a>
-        <a id="detractBtn" class="list-group-item">減損</a>
         <a id="editBtn" class="list-group-item">更改資訊</a>
       </div>
       <div class="rp_btn_field">

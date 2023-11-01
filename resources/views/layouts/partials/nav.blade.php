@@ -9,8 +9,8 @@
                 </button>
 
                 <a class="navbar-brand" href="#intro">
-                    <span>M</span>_m
-                    <!-- <img src="assets/img/logo1.png" alt="Logo"> -->
+                    <!-- <span>M</span>_m -->
+                    <img src="img/pixsee-logo.png" class="logo" alt="Logo">
                 </a>
             </div>
 
@@ -28,7 +28,11 @@
 
                     <ul class="nav navbar-nav">
                         <li class="page-scroll home">
-                            <a href="#body">現有資產</a>
+                            <a href="#body" class="nav-item">現有資產</a>
+                        </li>
+                        <li class="page-scroll">
+                            <select id="sel_attr" class="browser-default  form-control" name="sel_attr" placeholder="">
+                            </select>
                         </li>
                         <!-- <li class="page-scroll">
                             <a href="#detract">減損資產</a>
@@ -46,6 +50,9 @@
                             <a class="cd-signup" href="javascript:void(0);">註冊</a>
                         </li> -->
                     </ul>
+                    <div class="col-sm-9 v_text">
+                        
+                    </div>
                 </div>
             </div>
             <!-- /.navbar-collapse -->

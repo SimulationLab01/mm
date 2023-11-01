@@ -15,6 +15,7 @@
 var App = function() {
   var mData; //material data temp
   var typeList;
+  var attrList;
   var highLightRow;
   var numberThreshold = 10;
   var searchValue = '';
@@ -290,7 +291,7 @@ var App = function() {
       success: function(data) {
         attrList = data.attr;
         $.each(attrList, function (i, item) {
-            $('#e_attr, #n_attr').append($('<option>', { 
+            $('#e_attr, #n_attr, #sel_attr').append($('<option>', { 
                 value: item.ID,
                 text : item.ATTR_NAME
             }));
@@ -309,7 +310,8 @@ var App = function() {
       }
     })
 
-    $('#n_attr').on('change', attrChange);
+    $('#n_attr').on('change', nAttrChange);
+    $('#sel_attr').on('change', selAttrChange);
     $('#addBtn').on("click", addBtnClick);
     $('#addNBtn').on("click", addNBtnClick);
     $('#addYBtn').on("click", addYBtnClick);
@@ -322,7 +324,7 @@ var App = function() {
     $('#editNBtn').on("click", editNBtnClick);
     $('#editYBtn').on("click", editYBtnClick);
     $('#deleteBtn').on("click", deleteBtnClick);
-    $('#detractBtn').on("click", detractBtnClick);
+    // $('#detractBtn').on("click", detractBtnClick);
 
     //$('body').on("click", bodyClick);
     $('body').on("mousedown", bodyClick);
@@ -389,8 +391,12 @@ var App = function() {
 
   function fetchData(page) {
     var returnData = ''
+    $attr = $("#sel_attr").val();
+    if($attr == null)
+      $attr = 1;
+
     if(page == 'body')
-      ajax_url = root_path+'/api/materials';
+      ajax_url = root_path+'/api/materials/attr/'+$attr;
     // else if(page == 'detract')
     //   alert('detract');
     // else if(page == 'check')
@@ -424,31 +430,31 @@ var App = function() {
     {
       data.columns[0]['align'] = 'center';
       data.columns[0]['valign'] = 'middle';
-      data.columns[1]['align'] = 'center';
-      data.columns[1]['valign'] = 'middle';
-      data.columns[1]['width'] = 50;
-      data.columns[1]['formatter'] = attLook;
+      // data.columns[1]['align'] = 'center';
+      // data.columns[1]['valign'] = 'middle';
+      // data.columns[1]['width'] = 50;
+      // data.columns[1]['formatter'] = attLook;
       data.columns[7]['align'] = 'center';
       data.columns[7]['valign'] = 'middle';
       data.columns[7]['width'] = 100;
       data.columns[7]['events'] = statusEvents;
       data.columns[7]['formatter'] = statusLook;
 
-      var ajax_url = root_path+'/api/materials/counts';
-      $.ajax({
-          type: "GET",
-          url: ajax_url,
-          dataType: 'json',
-          success: function(data) {
-            //alert(data.count[0]);
-            $('#count-rich').text(data.count[0]);
-            $('#count-normal').text(data.count[1]);
-            $('#count-cheap').text(data.count[2]);
-          },
-          error:function(error){
-            console.log(error);
-          }
-      });
+      // var ajax_url = root_path+'/api/materials/counts';
+      // $.ajax({
+      //     type: "GET",
+      //     url: ajax_url,
+      //     dataType: 'json',
+      //     success: function(data) {
+      //       //alert(data.count[0]);
+      //       $('#count-rich').text(data.count[0]);
+      //       $('#count-normal').text(data.count[1]);
+      //       $('#count-cheap').text(data.count[2]);
+      //     },
+      //     error:function(error){
+      //       console.log(error);
+      //     }
+      // });
 
       $('#table').bootstrapTable({
         search: true,
@@ -486,18 +492,18 @@ var App = function() {
       '</div>'
       ].join("")
     }
-    else if( val == 3 )
-    {
-      return[
-      '仍有存量'
-      ].join("")
-    }
-    else if( val == 4 )
-    {
-      return[
-      '待補充'
-      ].join("")
-    }
+    // else if( val == 3 )
+    // {
+    //   return[
+    //   '仍有存量'
+    //   ].join("")
+    // }
+    // else if( val == 4 )
+    // {
+    //   return[
+    //   '待補充'
+    //   ].join("")
+    // }
   }
 
   function attLook(value,row,index) {
@@ -653,10 +659,15 @@ var App = function() {
     searchValue = text;
   }
 
-  function attrChange() {
+  function nAttrChange() {
     var attr = $('#n_attr').val();
     $("#insert-form").data('bootstrapValidator').resetForm();
     setFormByAttr(attr);
+  }
+
+  function selAttrChange() {
+    var attr = $('#sel_attr').val();
+    pageSel('body');
   }
 
   function addBtnClick () {
@@ -673,14 +684,14 @@ var App = function() {
     //手動觸發驗證
     bootstrapValidator.validate();
     if(bootstrapValidator.isValid()){
-      var status;
-      if($("#n_attr").val() == 3) 
-        if($("#n_number").val() > numberThreshold)
-          status = 3;
-        else
-          status = 4;
-      else
-        status = 1;
+      var status = 1;
+      // if($("#n_attr").val() == 3) 
+      //   if($("#n_number").val() > numberThreshold)
+      //     status = 3;
+      //   else
+      //     status = 4;
+      // else
+      //   status = 1;
 
       var dataJSON = {
                   "ATTRIBUTE": $("#n_attr").val(),
@@ -900,36 +911,43 @@ var App = function() {
 
   function setFormByAttr(attr) {
     //var attr = $('#n_attr').val();
-    if (attr == 1)
-    {
-      $('.att_b, .att_c').addClass('hide');
-      $('.att_a').removeClass('hide');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
-      $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
-      $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
-    }
-    else if (attr == 2) 
-    {
-      $('.att_a, .att_c').addClass('hide');
-      $('.att_b').removeClass('hide');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
-      $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
-      $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
-    }
-    else if (attr = 3)
-    {
-      $('.att_b, .att_a').addClass('hide');
-      $('.att_c').removeClass('hide');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', true, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', true, 'notEmpty');
-      $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
-      $('#update-form').bootstrapValidator('enableFieldValidators','e_number', true, 'notEmpty');
-      $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', true, 'notEmpty');
-    }
+    $('.att_b, .att_c').addClass('hide');
+    $('.att_a').removeClass('hide');
+    $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+    $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+    $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
+    $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
+    $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
+    // if (attr == 1)
+    // {
+    //   $('.att_b, .att_c').addClass('hide');
+    //   $('.att_a').removeClass('hide');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', true, 'notEmpty');
+    //   $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
+    //   $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
+    // }
+    // else if (attr == 2) 
+    // {
+    //   $('.att_a, .att_c').addClass('hide');
+    //   $('.att_b').removeClass('hide');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', false, 'notEmpty');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', false, 'notEmpty');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
+    //   $('#update-form').bootstrapValidator('enableFieldValidators','e_number', false, 'notEmpty');
+    //   $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', false, 'notEmpty');
+    // }
+    // else if (attr = 3)
+    // {
+    //   $('.att_b, .att_a').addClass('hide');
+    //   $('.att_c').removeClass('hide');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_number', true, 'notEmpty');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_unit', true, 'notEmpty');
+    //   $('#insert-form').bootstrapValidator('enableFieldValidators','n_purpose', false, 'notEmpty');
+    //   $('#update-form').bootstrapValidator('enableFieldValidators','e_number', true, 'notEmpty');
+    //   $('#update-form').bootstrapValidator('enableFieldValidators','e_unit', true, 'notEmpty');
+    // }
   }
 
   function resetAddForm(){
@@ -960,7 +978,7 @@ var App = function() {
           $('#v_att').attr('value', attr)
           setFormByAttr(attr);
           $('#v_id').text(data.ID);
-          $('#v_att').text( mapAtt(attr) );
+          $('#v_att').text( mapAttr(attr) );
           $('#v_name').text(data.NAME);
           $('#v_type').text( mapType(data.TYPE) );
           $('#v_place').text(data.PLACE);
@@ -1025,9 +1043,10 @@ var App = function() {
   }
 
   function add_info() { 
-    var attr = $('#n_attr').val();
+    var attr = $('#sel_attr').val();
     $('.group_e, .group_v, .group_h').addClass('hide');
     $('.group_n').removeClass('hide');
+    $('#n_attr').val(attr);
     setFormByAttr(attr);
     $('.right_pannel').addClass('show');
   }
@@ -1038,19 +1057,16 @@ var App = function() {
     $('#table tbody .highlight').removeClass('highlight');
   }
 
-  function mapAtt(key) {
-    if(key == 1)
-      return "貴重物品";
-    else if(key == 2)
-      return "一般物品";
-    else if(key == 3)
-      return "耗材";
-  }
-
   function mapType(key) {
     for(var i=0; i<typeList.length; i++)
       if(typeList[i].ID == key)
         return typeList[i].TYPE_NAME;
+  }
+
+  function mapAttr(key) {
+    for(var i=0; i<attrList.length; i++)
+      if(attrList[i].ID == key)
+        return attrList[i].ATTR_NAME;
   }
 
   return {

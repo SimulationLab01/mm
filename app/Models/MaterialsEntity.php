@@ -41,15 +41,39 @@ class MaterialsEntity extends Model
     }
 
 
-    public static function get_m_col_data()
+    // public static function get_m_col_data()
+    // {
+    //     return $data = DB::table('materials')
+    //                     ->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
+    //                     ->join('m_type', 'materials.TYPE', '=', 'm_type.ID')
+    //                     //->join('m_status', 'materials.STATUS', '=', 'm_status.ID')
+    //                     ->select('materials.ID', 
+    //                             'm_attribute.ATTR_NAME',
+    //                             //'materials.ATTRIBUTE', 
+    //                             'materials.NAME',
+    //                             'm_type.TYPE_NAME', 
+    //                             //'materials.TYPE', 
+    //                             'materials.PLACE', 
+    //                             'materials.SPEC',
+    //                             'materials.updated_at',
+    //                             DB::raw("DATE_FORMAT(materials.updated_at, '%Y-%m-%d') as updated_at"), 
+    //                             //'m_status.STATUS_NAME',
+    //                             'materials.STATUS',
+    //                             'materials.PURCHASE_NUM')
+    //                     ->orderBy('materials.ID')
+    //                     ->whereNull('deleted_at')
+    //                     ->get();
+    // }
+
+    public static function get_m_col_data($attr_id)
     {
         return $data = DB::table('materials')
-                        //->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
+                        ->join('m_attribute', 'materials.ATTRIBUTE', '=', 'm_attribute.ID')
                         ->join('m_type', 'materials.TYPE', '=', 'm_type.ID')
                         //->join('m_status', 'materials.STATUS', '=', 'm_status.ID')
                         ->select('materials.ID', 
-                                //'m_attribute.ATTRIBUTE_NAME',
-                                'materials.ATTRIBUTE', 
+                                'm_attribute.ATTR_NAME',
+                                //'materials.ATTRIBUTE', 
                                 'materials.NAME',
                                 'm_type.TYPE_NAME', 
                                 //'materials.TYPE', 
@@ -61,6 +85,7 @@ class MaterialsEntity extends Model
                                 'materials.STATUS',
                                 'materials.PURCHASE_NUM')
                         ->orderBy('materials.ID')
+                        ->where('materials.ATTRIBUTE', '=', $attr_id)
                         ->whereNull('deleted_at')
                         ->get();
     }

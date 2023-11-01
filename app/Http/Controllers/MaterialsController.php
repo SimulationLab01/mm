@@ -72,9 +72,10 @@ class MaterialsController extends Controller
     }
 
     //// ====more than basic CRUD==== ////
-    public function get_m_col_data()
+    public function get_m_col_data($id)
     {
-        $data = MaterialsEntity::get_m_col_data();
+        $attr_id = $id;
+        $data = MaterialsEntity::get_m_col_data($attr_id);
         // $data = MaterialsController::get_all();
         $get_m_cul = array(
             'columns' => array(
@@ -84,7 +85,7 @@ class MaterialsController extends Controller
                     'sortable' => true
                 ),
                 array(
-                    'field' => 'ATTRIBUTE',
+                    'field' => 'ATTR_NAME',
                     'title' => '屬性',
                     'sortable' => true
                 ),
