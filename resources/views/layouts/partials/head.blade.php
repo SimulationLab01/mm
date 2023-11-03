@@ -47,4 +47,4 @@
     <link rel="stylesheet" href="{{env('ROOT_PATH')}}/css/theme-skins/one.dark.css">
 
     <!-- CSS Customization -->
-    <link rel="stylesheet" href="{{env('ROOT_PATH')}}/css/custom.css?20231101">
+    <link rel="stylesheet" href="{{env('ROOT_PATH')}}/css/custom.css?20231103">
